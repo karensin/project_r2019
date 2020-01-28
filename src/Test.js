@@ -11,38 +11,54 @@ class Test extends React.Component {
     }
 
     componentDidMount() {
-        var url = "/v2/animals?type=dog&good_with_children=true";
-        var bearer = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxMzRiNjE2NmE1MjlhY2ZmYjYxNGU2NGU0YTI4OWY5ZmE4NWFiYzZlZTgwZWZjOGQ2ZWEwMDk2MDFiOGY0N2YwODA4NGRlMGRhNTg3NmM1In0.eyJhdWQiOiJjeDFRMWhQMm12UjZqZUc0NDdjQVJrYThVUmp3cFdseW42bXlLZWRWM3c2YXAzcXkwdiIsImp0aSI6IjQxMzRiNjE2NmE1MjlhY2ZmYjYxNGU2NGU0YTI4OWY5ZmE4NWFiYzZlZTgwZWZjOGQ2ZWEwMDk2MDFiOGY0N2YwODA4NGRlMGRhNTg3NmM1IiwiaWF0IjoxNTgwMTY2NTQ5LCJuYmYiOjE1ODAxNjY1NDksImV4cCI6MTU4MDE3MDE0OSwic3ViIjoiIiwic2NvcGVzIjpbXX0.Z94K4eM3cPEIVNo_VQ5GyZjK0vPVYk0UXG5tqHUVeb7MBZ7HvNF756gjoGqbYscT5pIcB140UHY5lYbyELcDwkPpC2AZATfJt0dAUk2OREQuqQH99e7GxciAIgj0con_apaUml9674UEnjYfAJYepdokffNTa6R8kLTtv0af0s-T3crigMkzl16bfMqgedrr0HFMHHt31i_d_WLdHPc8yl9BRgEVjOAZULDazLDv0ALBSxymDYkKFf0iPjaqee5eHMoN-8QdpzaPvycMUxm3oszwkjPAwzTKnjemTaqcvERQ-FPMZM-2VwEwsuHpD06mmvR-QuQtY1yPuIZl95WWZQ'
+        let token = "";
+        let url = "/v2/animals?type=dog&good_with_children=true";
+        let bearer = 'Bearer ' +
 
-        fetch(url, {
-            withCredentials: true,
-            headers: {
-                'Authorization': bearer,
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                'Access-Control-Allow-Methods': "GET, PUT, POST, DELETE, HEAD, OPTIONS",
-                'Access-Control-Expose-Headers': 'Authorization'
-            }
-        }).then(res => res.json())
-            .then(
-                (result) => {
-                    console.log(result)
-                    this.setState({
-                        isLoaded: true,
-                        items: result.items
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+            fetch("/v2/oauth2/token")
+                .then(res => res.json())
+                .then(
+                    (res) => {
+                        console.log(res)
+                        fetch(url, {
+                            withCredentials: true,
+                            headers: {
+                                'Authorization': bearer,
+                                'Content-Type': 'application/json',
+                                "Access-Control-Allow-Origin": "*",
+                                'Access-Control-Allow-Methods': "GET, PUT, POST, DELETE, HEAD, OPTIONS",
+                                'Access-Control-Expose-Headers': 'Authorization',
+                                body: {
+                                    grant_type: "client_credentials",
+                                    client_id: "cx1Q1hP2mvR6jeG447cARka8URjwpWlyn6myKedV3w6ap3qy0v",
+                                    client_secret: "j6t83Wt0nfH075v0hhdYnutWnnuvfmtnDbmY8JOb"
+                                }
+                            }
+                        }).then(res => res.json())
+                            .then(
+                                (result) => {
+                                    console.log(result)
+                                    this.setState({
+                                        isLoaded: true,
+                                        items: result.items
+                                    });
+                                },
+                                // Note: it's important to handle errors here
+                                // instead of a catch() block so that we don't swallow
+                                // exceptions from actual bugs in components.
+                                (error) => {
+                                    this.setState({
+                                        isLoaded: true,
+                                        error
+                                    });
+                                }
+                            )
+                    })
     }
+
+
+
+
 
     render() {
         return (<div></div>)
