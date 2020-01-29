@@ -1,14 +1,26 @@
-import React from 'react';
 import './App.css';
-import Test from './Test.js'
+import React, { Component } from 'react';
+import SearchBar from './components/SearchBar.js'
+import Footer from './components/Footer.js'
+import Header from './components/Header.js'
+// import Test from './Test.js'
 
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <Test />
-    </div >
-  );
+  render() {
+    return (
+      <div className="App">
+        {/* <Test /> */}
+        <SearchBar />
+        <Header />
+        {/* <About />
+        <Features />
+        <FAQ /> */}
+        <Footer />
+      </div>
+    )
+  }
 }
+
 
 export default App;
