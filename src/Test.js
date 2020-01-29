@@ -54,26 +54,17 @@ class Test extends React.Component {
         console.log(this.token);
         this.requestData();
 
-        // .then(res => res.json())
-        // .then(
-        //     (result) => {
-        //         this.setState({
-        //             isLoaded: true,
-        //             items: result.animals
-        //         });
-        //     },
-        //     // Note: it's important to handle errors here
-        //     // instead of a catch() block so that we don't swallow
-        //     // exceptions from actual bugs in components.
-        //     (error) => {
-        //         this.setState({
-        //             isLoaded: true,
-        //             error
-        //         });
-        //     }
-        // )
     }
 
+    makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
     render() {
         const { error, isLoaded, items } = this.state;
 
@@ -83,9 +74,9 @@ class Test extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <ul>
+                <ul >
                     {items.map(item => (
-                        <li key={item.name}>
+                        <li key={this.makeid(5)}>
                             {item.name}: {item.type} | {item.breeds.primary}
                         </li>
                     ))}

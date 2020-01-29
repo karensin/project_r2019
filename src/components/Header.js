@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap'
-
+import { Container, Row, Col } from 'react-bootstrap';
+import SearchTool from './SearchTool.js';
 
 class Header extends Component {
 
@@ -10,13 +10,10 @@ class Header extends Component {
             <main role="main" className="Header h-100">
                 <Container>
                     <Row>
-                        <Col>SearchTool</Col>
+                        <Col><SearchTool /></Col>
                         <Col>Image</Col>
                     </Row>
-                    <Row>
-                        <Col>SearchTool</Col>
-                        <Col>Image</Col>
-                    </Row>
+
                 </Container>
 
             </main>
