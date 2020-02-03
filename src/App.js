@@ -7,6 +7,7 @@ import LandingPage from './components/LandingPage'
 import SearchBar from './components/SearchBar.js'
 class App extends Component {
 
+<<<<<<< HEAD
   render() {
     return (
       <div className="App">
@@ -23,6 +24,14 @@ class App extends Component {
       </div>
     )
   }
+=======
+function App() {
+    return (
+        <div className="App">
+            <Test />
+        </div >
+    );
+>>>>>>> clean up
 }
 
 

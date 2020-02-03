@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 class Test extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +12,8 @@ class Test extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(this.token);
+        await this.getToken();
+        await this.requestData();
     }
 
     makeid(length) {
@@ -26,8 +25,8 @@ class Test extends React.Component {
         }
         return result;
     }
+
     render() {
-        // this.requestData();
         console.log('render', this.props)
         let { items, isLoaded } = this.props;
         items = items || [];
