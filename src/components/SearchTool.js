@@ -13,9 +13,8 @@ class SearchTool extends Component {
     constructor() {
         super()
         this.state = {
-            petType: 'dog',
+            petType: 'Dog',
         }
-
     }
 
 
@@ -30,6 +29,7 @@ class SearchTool extends Component {
         const jsonResponse = await response.json();
         this.token = jsonResponse.access_token;
     }
+
 
     async requestData() {
         const params = {
@@ -66,14 +66,12 @@ class SearchTool extends Component {
         console.log('it works')
     }
 
-    handleChange = val => {
-        console.log('val is', val);
+    async handleChange(val) {
         this.setState({
             petType: val
         });
-        console.log('val is', val);
-        this.getToken();
-        this.requestData();
+        await this.getToken();
+        await this.requestData();
     }
 
     render() {
@@ -84,16 +82,14 @@ class SearchTool extends Component {
                     <FormControl type="text" placeholder="Search" className="mr-sm-2 w-50" />
                     <Button variant="outline-light">Search</Button>
                     <Row>
-
                         <ButtonToolbar>
-                            <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange}>
-                                <ToggleButton value={'dog'}>Dog</ToggleButton>
-                                <ToggleButton value={'cat'}>Cat</ToggleButton>
+                            <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
+                                <ToggleButton value={'Dog'}>Dog</ToggleButton>
+                                <ToggleButton value={'Cat'}>Cat</ToggleButton>
+
                             </ToggleButtonGroup>
                         </ButtonToolbar>
-
                     </Row>
-
                     <Expand />
                     <Button >
                         Search
