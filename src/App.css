@@ -5,13 +5,11 @@ html{
 }
  
 .greybackground{
-  background-color: rgba(25, 77, 99, 0.671);
-  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 90%);
+  background: rgba(255, 255, 255, 0.664) ;
   mix-blend-mode: normal;
   transform: rotate(-0.13deg);
+  
 }
-
-
 
 body{
   font-family: "Roboto", sans-serif;;
@@ -43,13 +41,6 @@ body{
   width: 90vh;
 }
 
-
-.footer {
-  position: relative;
-  margin-top: -150px; 
-  height: 150px;
-  padding-top:20px;
-} 
  
 main{
   min-height: 100vh;
@@ -62,9 +53,9 @@ main{
 
 a.nav-link.nav-font.nav-link{
   font-family: 'Atma';
-  font-size: 18pt;
+  font-size: 20pt;
   letter-spacing: 0.1em;
-  font-weight: 500;
+  font-weight: 900;
   line-height: 36px;
   color: #8C986A;
   -webkit-text-stroke: rgba(163, 159, 145, 0.548) 1px;
@@ -76,7 +67,42 @@ span.background.labelFont.navbar-brand{
   font-size: 24pt;
   color: #8C986A;
   -webkit-text-stroke: rgba(163, 159, 145, 0.548) 1px;
-  font-weight: 450;
+  font-weight: 900;
   line-height: 36px
 
 }
+/* 
+.landingbtn {
+  position: absolute;; 
+  top:500px; 
+  left: 300px;
+  padding-bottom: 100px;
+  text-align:center; 
+  width:80px;
+  font-size: 20px;
+  border-radius: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+  border: 0;
+  color: whitesmoke;
+  box-shadow: 0px 0px 100px 20px rgba(255, 255, 255, 0.5);
+ 
+}
+
+ 
+.landingbtn:hover, .landingbtn:hover::before {
+  text-decoration: none;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px teal;
+ 
+}
+
+.landingbtn:hover {
+  color: white;
+} */
+
+ 
