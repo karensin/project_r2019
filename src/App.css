@@ -5,7 +5,10 @@ html{
 }
  
 .greybackground{
-  background-color: rgba(65, 46, 34, 0.87);
+  background-color: rgba(25, 77, 99, 0.671);
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 90%);
+  mix-blend-mode: normal;
+  transform: rotate(-0.13deg);
 }
 
 
@@ -14,24 +17,66 @@ body{
   font-family: "Roboto", sans-serif;;
   font-style: normal;
   font-weight: 800;
-  color:#EBE0D3;
+  color:rgb(40, 91, 133);
   background: #00344A;
 }
+.landing {
+  height: 100vh;
+  min-width: 100%;
+
+}
+
+ 
+
+.Aligner-item {
+  position: relative;
+  top: 20%;
+  left: 25%;
+  width: 70vh;
+  font-size: 22pt;
+  font-family: 'Abhaya Libre SemiBold';
+  line-height: 156.62%;
+}
+
+.right{
+  left: 31%; 
+  width: 90vh;
+}
+
 
 .footer {
   position: relative;
   margin-top: -150px; 
   height: 150px;
-  clear:both;
   padding-top:20px;
 } 
  
 main{
-  min-height: 75vh;
-  background-color:#EBE0D3 ;
- 
+  min-height: 100vh;
+  background-color: rgba(25, 77, 99, 0.671);
 }
 
 .SearchToolBox{
   border: 1px solid black;
+}
+
+a.nav-link.nav-font.nav-link{
+  font-family: 'Atma';
+  font-size: 18pt;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  line-height: 36px;
+  color: #8C986A;
+  -webkit-text-stroke: rgba(163, 159, 145, 0.548) 1px;
+}
+
+span.background.labelFont.navbar-brand{
+  font-family: 'Atma';
+  line-height: 36px;
+  font-size: 24pt;
+  color: #8C986A;
+  -webkit-text-stroke: rgba(163, 159, 145, 0.548) 1px;
+  font-weight: 450;
+  line-height: 36px
+
 }

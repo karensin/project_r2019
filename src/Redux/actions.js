@@ -1,27 +1,26 @@
-import { createStore } from 'redux'
 import { store } from '../index'
 
 
-export const store = createStore(rootReducer)
 
+export const type = 'PET_TYPE';
+export const TEXT = 'testing';
 
 export const changePetType = petType => ({
     type: 'PET_TYPE',
-    petType
+    petType,
+    text: 'testing'
 })
 
-export const boundChangePetType = text => store.dispatch(changePetType(text))
-
-// store.subscribe(() => {
-//     console.log('store changed', store.getState())
-// })
-
-// store.dispatch(
-//     { type: 'PET_TYPE', doSomething: 1 }
-// )
+// export const boundChangePetType = type => store.dispatch(changePetType(type))
 
 
+boundChangePetType(type)
 
-// export const PetChangeActions={ 
-//     petType:
-// }
+export function togglePetType(text) {
+    return { type: TEXT, text }
+}
+
+export function boundChangePetType(type) {
+    return { type: 'PET_TYPE' }
+}
+togglePetType('testing1')

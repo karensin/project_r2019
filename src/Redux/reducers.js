@@ -1,4 +1,3 @@
-import { changePetType, boundChangePetType } from './actions'
 
 const petTypeReducer = (state = [], action) => {
     switch (action.type) {
@@ -11,3 +10,4 @@ const petTypeReducer = (state = [], action) => {
     }
 }
 export default petTypeReducer
+

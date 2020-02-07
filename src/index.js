@@ -5,10 +5,25 @@ import App from './App';
 import { Provider } from 'react-redux'
 import rootReducer from './Redux/reducers'
 import { createStore } from 'redux'
+import { changePetType, togglePetType, boundChangePetType } from './Redux/actions'
+import petTypeReducer from './Redux/reducers'
 
 
-export const store = createStore(rootReducer)
+const store = createStore(petTypeReducer, window.STATE_FROM_SERVER)
 
+console.log(store.getState())
+
+
+const unsubscribe = store.subscribe(() => console.log(store.getState()))
+
+store.dispatch(changePetType('testing'))
+store.dispatch(boundChangePetType('testing2'))
+store.getState()
+store.dispatch(boundChangePetType('testing'))
+store.dispatch(togglePetType('testing'))
+
+
+unsubscribe()
 
 ReactDOM.render(
     <Provider store={store}>

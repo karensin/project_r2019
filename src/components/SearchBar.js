@@ -9,21 +9,21 @@ class SearchBar extends Component {
         return (
             <nav className="greybackground">
                 <Navbar className="navbar-default" variant="dark">
-                    <img
+                    {/* <img
                         src={process.env.PUBLIC_URL + "/imgs/logo2.png"}
                         className="logo"
                         width="55"
                         height="65"
                         alt="logo"
 
-                    />
-                    <Navbar.Brand className="background"
+                    /> */}
+                    <Navbar.Brand className="background labelFont"
                     >Project Crateless</Navbar.Brand>
                     <Nav className="navbar-collapse collapse justify-content-end">
-                        <Nav.Link className="nav-link" href="#home">Adopt</Nav.Link>
-                        <Nav.Link className="nav-link" href="#foster">Foster</Nav.Link>
-                        <Nav.Link className="nav-link" href="#news">News</Nav.Link>
-                        <Nav.Link className="nav-link" href="#about">About</Nav.Link>
+                        <Nav.Link className="nav-link nav-font" href="#home">Adopt</Nav.Link>
+                        <Nav.Link className="nav-link nav-font" href="#foster">Foster</Nav.Link>
+                        <Nav.Link className="nav-link nav-font" href="#news">News</Nav.Link>
+                        <Nav.Link className="nav-link nav-font" href="#about">About</Nav.Link>
 
                     </Nav>
                 </Navbar>

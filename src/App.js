@@ -1,17 +1,17 @@
 import './App.css';
 import React, { Component } from 'react';
-import SearchBar from './components/SearchBar.js'
 import Footer from './components/Footer.js'
 import Header from './components/Header.js'
 import Test from './Test.js'
-
+import LandingPage from './components/LandingPage'
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <SearchBar />
+        <LandingPage />
         <Header />
+
         <Test />
 
         {/* <About />
