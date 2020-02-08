@@ -5,6 +5,10 @@ import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import Test from '../Test.js';
+import { boundChangePetType } from '../Redux/actions'
+
+
+
 const domain = "https://api.petfinder.com";
 const tokenUrl = '/v2/oauth2/token';
 const url = `/v2/animals`;
@@ -59,12 +63,12 @@ class SearchTool extends Component {
         this.setState({
             petType: val
         });
+        boundChangePetType(val)
         await this.getToken();
         await this.requestData();
     }
 
     render() {
-        console.log(this.state.items)
         return (
             <Container className="SearchToolBox">
                 <Form>
