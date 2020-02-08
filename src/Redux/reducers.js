@@ -1,8 +1,9 @@
 const initialState = {
-    petType: 'dog'
+    petType: 'dog',
+    petData: []
 }
 
-const petTypeReducer = (state, action) => {
+const petReducer = (state, action) => {
     if (typeof state === 'undefined') {
         return initialState
     }
@@ -12,9 +13,15 @@ const petTypeReducer = (state, action) => {
                 ...state,
                 petType: action.petType
             }
+        case 'PET_DATA':
+            return {
+                ...state,
+                petData: action.petData
+            }
         default:
             return state
     }
+
 }
-export default petTypeReducer
+export default petReducer
 

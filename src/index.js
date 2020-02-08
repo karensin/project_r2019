@@ -5,10 +5,10 @@ import App from './App';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { changePetType, togglePetType, boundChangePetType } from './Redux/actions'
-import petTypeReducer from './Redux/reducers'
+import petReducer from './Redux/reducers'
 
 
-export const store = createStore(petTypeReducer)
+export const store = createStore(petReducer)
 
 console.log(store.getState())
 

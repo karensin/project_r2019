@@ -5,7 +5,7 @@ import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import Test from '../Test.js';
-import { boundChangePetType } from '../Redux/actions'
+import { boundChangePetData } from '../Redux/actions'
 
 
 
@@ -41,6 +41,7 @@ class SearchTool extends Component {
 
         const bearer = `Bearer ${this.token}`;
         try {
+
             //teach string interpolation 
             const res = await fetch(domain + url + '?' + queryString, {
                 withCredentials: true,
@@ -50,10 +51,12 @@ class SearchTool extends Component {
                 }
             });
             const jsonRes = await res.json();
-            this.setState({
-                isLoaded: true,
-                items: jsonRes.animals
-            });
+            // this.setState({
+            //     isLoaded: true,
+            //     items: jsonRes.animals
+            // });
+            boundChangePetData(jsonRes.animals)
+
         } catch (error) {
             console.log(error);
         }
@@ -63,7 +66,6 @@ class SearchTool extends Component {
         this.setState({
             petType: val
         });
-        boundChangePetType(val)
         await this.getToken();
         await this.requestData();
     }

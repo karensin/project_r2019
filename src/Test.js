@@ -1,4 +1,5 @@
 import React from 'react'
+import { store } from './index'
 
 class Test extends React.Component {
     constructor(props) {
@@ -9,6 +10,16 @@ class Test extends React.Component {
             isLoaded: false,
             items: []
         };
+        store.subscribe(() => this.updateData())
+
+    }
+
+    updateData() {
+        const petState = store.getState()
+        console.log(petState)
+        this.setState({
+            items: petState.petData
+        })
     }
 
     makeid(length) {
@@ -22,9 +33,12 @@ class Test extends React.Component {
     }
 
     render() {
-        let { items, isLoaded } = this.props;
+        let { isLoaded } = this.props;
+        let { items } = this.state;
+
         items = items || [];
 
+        isLoaded = true;
         if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
