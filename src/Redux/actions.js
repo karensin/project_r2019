@@ -1,7 +1,3 @@
-import { store } from '../index'
-
-
-
 export const type = 'PET_TYPE';
 export const TEXT = 'testing';
 

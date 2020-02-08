@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux'
-import rootReducer from './Redux/reducers'
 import { createStore } from 'redux'
 import { changePetType, togglePetType, boundChangePetType } from './Redux/actions'
 import petTypeReducer from './Redux/reducers'

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ButtonToolbar, Button, ToggleButton, Collapse, ToggleButtonGroup } from 'react-bootstrap/'
 import { useState } from 'react';
