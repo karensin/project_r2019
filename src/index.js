@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux'
-import rootReducer from './Redux/reducers'
 import { createStore } from 'redux'
 import { changePetType, togglePetType, boundChangePetType } from './Redux/actions'
 import petTypeReducer from './Redux/reducers'
@@ -15,17 +14,12 @@ console.log(store.getState())
 
 const unsubscribe = store.subscribe(() => console.log(store.getState()))
 
-store.dispatch(changePetType('testing'))
-store.dispatch(boundChangePetType('testing2'))
 store.getState()
-store.dispatch(boundChangePetType('testing'))
-store.dispatch(togglePetType('testing'))
 
-unsubscribe()
+// unsubscribe()
 
 ReactDOM.render(
     <Provider store={store}>
-
         <App />
     </Provider>,
     document.getElementById('root')

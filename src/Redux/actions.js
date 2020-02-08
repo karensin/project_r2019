@@ -13,8 +13,6 @@ export const changePetType = petType => ({
 
 export const boundChangePetType = type => store.dispatch(changePetType(type))
 
-
-
 export function togglePetType(text) {
     return { type: TEXT, text }
 }
