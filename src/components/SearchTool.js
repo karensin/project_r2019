@@ -17,7 +17,6 @@ class SearchTool extends Component {
         }
     }
 
-
     async getToken() {
         const response = await fetch(`${domain}${tokenUrl}`, {
             body: "grant_type=client_credentials&client_id=cx1Q1hP2mvR6jeG447cARka8URjwpWlyn6myKedV3w6ap3qy0v&client_secret=j6t83Wt0nfH075v0hhdYnutWnnuvfmtnDbmY8JOb",
@@ -30,17 +29,15 @@ class SearchTool extends Component {
         this.token = jsonResponse.access_token;
     }
 
-
     async requestData() {
         const params = {
             type: this.state.petType,
         }
-        console.log("trying to request Data", params);
         var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
 
         const bearer = `Bearer ${this.token}`;
-        console.log(domain + url + '?' + queryString);
-        try { //teach string interpolation 
+        try {
+            //teach string interpolation 
             const res = await fetch(domain + url + '?' + queryString, {
                 withCredentials: true,
                 headers: {
@@ -55,15 +52,7 @@ class SearchTool extends Component {
             });
         } catch (error) {
             console.log(error);
-            // this.setState({
-            //     isLoaded: true,
-            //     error
-            // });
         }
-    }
-
-    changeHandler = (event) => {
-        console.log('it works')
     }
 
     async handleChange(val) {
@@ -84,9 +73,8 @@ class SearchTool extends Component {
                     <Row>
                         <ButtonToolbar>
                             <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
-                                <ToggleButton value={'Dog'}>Dog</ToggleButton>
-                                <ToggleButton value={'Cat'}>Cat</ToggleButton>
-
+                                <ToggleButton value={'dog'}>Dog</ToggleButton>
+                                <ToggleButton value={'cat'}>Cat</ToggleButton>
                             </ToggleButtonGroup>
                         </ButtonToolbar>
                     </Row>
@@ -94,10 +82,8 @@ class SearchTool extends Component {
                     <Button >
                         Search
                     </Button>
-
                 </Form>
                 <Test items={this.state.items} isLoaded={this.state.isLoaded} />
-
             </Container>
         )
     }

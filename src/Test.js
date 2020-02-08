@@ -11,11 +11,6 @@ class Test extends React.Component {
         };
     }
 
-    async componentDidMount() {
-        await this.getToken();
-        await this.requestData();
-    }
-
     makeid(length) {
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
