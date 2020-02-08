@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Footer from './components/Footer.js'
 import Header from './components/Header.js'
 import SearchBar from './components/SearchBar.js'
+
 class App extends Component {
     render() {
         return (
@@ -14,6 +15,5 @@ class App extends Component {
         )
     }
 }
-
 
 export default App;

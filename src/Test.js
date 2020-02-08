@@ -22,7 +22,6 @@ class Test extends React.Component {
     }
 
     render() {
-        console.log('render', this.props)
         let { items, isLoaded } = this.props;
         items = items || [];
 
@@ -30,7 +29,7 @@ class Test extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <ul >
+                <ul>
                     {items.map(item => (
                         <li key={this.makeid(5)}>
                             {item.name}: {item.type} | {item.breeds.primary}

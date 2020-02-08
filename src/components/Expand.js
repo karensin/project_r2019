@@ -14,7 +14,7 @@ function Expand() {
                 aria-expanded={open}
             >
                 More
-        </Button>
+            </Button>
             <Collapse in={open}>
                 <div>
                     Age
@@ -22,8 +22,8 @@ function Expand() {
                         <ToggleButtonGroup type="checkbox">
                             <ToggleButton value={1}>Puppy</ToggleButton>
                             <ToggleButton value={2}>Junior </ToggleButton>
-                            <ToggleButton value={3}>Adult</ToggleButton>      <ToggleButton value={4}>Senior</ToggleButton>
-
+                            <ToggleButton value={3}>Adult</ToggleButton>
+                            <ToggleButton value={4}>Senior</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>
                     Coat
@@ -31,7 +31,8 @@ function Expand() {
                         <ToggleButtonGroup type="checkbox" >
                             <ToggleButton value={1}>Hairless</ToggleButton>
                             <ToggleButton value={2}>Short </ToggleButton>
-                            <ToggleButton value={3}>Long</ToggleButton>      <ToggleButton value={4}>Wire</ToggleButton>
+                            <ToggleButton value={3}>Long</ToggleButton>
+                            <ToggleButton value={4}>Wire</ToggleButton>
                             <ToggleButton value={4}>Curly</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>
@@ -39,7 +40,7 @@ function Expand() {
                     <ButtonToolbar>
                         <ToggleButtonGroup type="checkbox" >
                             <ToggleButton value={1}>Children</ToggleButton>
-                            <ToggleButton value={2}>Dogs </ToggleButton>
+                            <ToggleButton value={2}>Dogs</ToggleButton>
                             <ToggleButton value={3}>Cats</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>

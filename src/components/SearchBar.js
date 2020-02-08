@@ -15,7 +15,6 @@ class SearchBar extends Component {
                         width="55"
                         height="65"
                         alt="logo"
-
                     /> */}
                     <Navbar.Brand className="background labelFont d-flex flex-column justify-content-start"
                     >Project Crateless</Navbar.Brand>
@@ -24,7 +23,6 @@ class SearchBar extends Component {
                         <Nav.Link className="nav-link nav-font" href="#foster">Foster</Nav.Link>
                         <Nav.Link className="nav-link nav-font" href="#news">News</Nav.Link>
                         <Nav.Link className="nav-link nav-font" href="#about">About</Nav.Link>
-
                     </Nav>
                 </Navbar>
             </nav >
