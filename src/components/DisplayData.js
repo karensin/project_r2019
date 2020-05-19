@@ -21,13 +21,13 @@ function DisplayData(props) {
 
     useEffect(() => {
         function mapItems() {
+            // console.log(items[0]['primary_photo_cropped']['small'])
             for (let i = 0; i < items.length; i++) {
                 let item = items[i]
-
-                console.log(item, item['primary_photo_cropped'], 'lookie')
-                if (items['photos']) {
-                    console.log(item['photos']['small'], 'hehe')
-                }
+                console.log(item, '_______', item['photos'], item['photos'][0]['full'], 'lookie')
+                // if (items['primary_photo_cropped']) {
+                //     console.log(item['primary_photo_cropped']['small'], '__________hehe')
+                // }
 
             }
         }
