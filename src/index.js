@@ -12,9 +12,9 @@ export const store = createStore(petReducer)
 
 console.log(store.getState())
 
-const unsubscribe = store.subscribe(() => console.log(store.getState()))
+// const unsubscribe = store.subscribe(() => console.log(store.getState()))
 
-store.getState()
+// store.getState()
 
 // unsubscribe()
 

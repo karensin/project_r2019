@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import SearchTool from './SearchTool.js';
 
+import { Card, Icon, Image } from 'semantic-ui-react'
 
 class Header extends Component {
 
@@ -11,7 +12,6 @@ class Header extends Component {
             <main role="main" className="header h-100 landing Aligner" style={{
                 background: `url("${process.env.PUBLIC_URL + '/imgs/Home.png'}") no-repeat center / cover `
             }}>
-
                 <Container>
 
                     <Row>

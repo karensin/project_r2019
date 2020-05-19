@@ -1,7 +1,13 @@
+
 const initialState = {
     petType: 'dog',
-    petData: []
+    petData: [],
+    vistorCount: 0,
+
 }
+
+
+
 
 const petReducer = (state, action) => {
     if (typeof state === 'undefined') {
@@ -18,10 +24,20 @@ const petReducer = (state, action) => {
                 ...state,
                 petData: action.petData
             }
+        case 'PET_AGE':
+            return {
+                ...state,
+                petAge: action.petAge
+            }
+        case 'VISTOR_COUNT':
+            return {
+                ...state,
+                vistorCount: state.vistorCount + 1
+            }
         default:
             return state
     }
-
 }
+
 export default petReducer
 

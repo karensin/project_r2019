@@ -4,9 +4,8 @@ import { Container, Row } from 'react-bootstrap'
 import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
-import Test from '../Test.js';
+import GetData from './GetData.js';
 import { boundChangePetData } from '../Redux/actions'
-
 
 
 const domain = "https://api.petfinder.com";
@@ -23,7 +22,7 @@ class SearchTool extends Component {
 
     async getToken() {
         const response = await fetch(`${domain}${tokenUrl}`, {
-            body: "grant_type=client_credentials&client_id=cx1Q1hP2mvR6jeG447cARka8URjwpWlyn6myKedV3w6ap3qy0v&client_secret=j6t83Wt0nfH075v0hhdYnutWnnuvfmtnDbmY8JOb",
+            body: "grant_type=client_credentials&client_id=cx1Q1hP2mvR6jeG447cARka8URjwpWlyn6myKedV3w6ap3qy0v&client_secret=S0dclp9P1odBVYNRx9MrotL78XE0tAU4L57YCYH2",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
@@ -41,7 +40,6 @@ class SearchTool extends Component {
 
         const bearer = `Bearer ${this.token}`;
         try {
-
             //teach string interpolation 
             const res = await fetch(domain + url + '?' + queryString, {
                 withCredentials: true,
@@ -51,10 +49,10 @@ class SearchTool extends Component {
                 }
             });
             const jsonRes = await res.json();
-            // this.setState({
-            //     isLoaded: true,
-            //     items: jsonRes.animals
-            // });
+            this.setState({
+                isLoaded: true,
+                items: jsonRes.animals
+            });
             boundChangePetData(jsonRes.animals)
 
         } catch (error) {
@@ -89,7 +87,7 @@ class SearchTool extends Component {
                         Search
                     </Button>
                 </Form>
-                <Test items={this.state.items} isLoaded={this.state.isLoaded} />
+                <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
             </Container>
         )
     }
