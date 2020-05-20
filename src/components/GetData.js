@@ -2,6 +2,7 @@ import React from 'react'
 import { store } from '../index'
 import { Image } from 'semantic-ui-react'
 import DisplayData from './DisplayData'
+import Header from './Header'
 
 
 class GetData extends React.Component {
@@ -37,12 +38,8 @@ class GetData extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>
-                    {/* <Image src='https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/48016172/1/?bust=1589856412&width=100' size='small' circular /> */}
+                <div >
                     <DisplayData items={items} />
-                    {/* <ul>
-                        
-                    </ul> */}
                 </div>
             );
         }

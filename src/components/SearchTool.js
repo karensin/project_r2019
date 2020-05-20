@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import GetData from './GetData.js';
 import { boundChangePetData } from '../Redux/actions'
+import DisplayData from './DisplayData.js';
 
 
 const domain = "https://api.petfinder.com";
@@ -70,24 +71,35 @@ class SearchTool extends Component {
 
     render() {
         return (
-            <Container className="SearchToolBox">
-                <Form>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2 w-50" />
-                    <Button variant="outline-light">Search</Button>
-                    <Row>
-                        <ButtonToolbar>
-                            <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
-                                <ToggleButton value={'dog'}>Dog</ToggleButton>
-                                <ToggleButton value={'cat'}>Cat</ToggleButton>
-                            </ToggleButtonGroup>
-                        </ButtonToolbar>
-                    </Row>
-                    <Expand />
-                    <Button >
-                        Search
+            <Container>
+                <Row>
+                    <Col>
+                        <Container className="SearchToolBox">
+                            <Form>
+                                <FormControl type="text" placeholder="Search" className="mr-sm-2 w-50" />
+                                <Button variant="outline-light">Search</Button>
+                                <Row>
+                                    <ButtonToolbar>
+                                        <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
+                                            <ToggleButton value={'dog'}>Dog</ToggleButton>
+                                            <ToggleButton value={'cat'}>Cat</ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </ButtonToolbar>
+                                </Row>
+                                <Expand />
+                                <Button >
+                                    Search
                     </Button>
-                </Form>
-                <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
+                            </Form>
+                        </Container>
+                    </Col>
+                    <Col>
+                        <Container>
+                            <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
+                        </Container>
+                    </Col>
+                </Row>
+
             </Container>
         )
     }

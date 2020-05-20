@@ -11,9 +11,7 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 class App extends Component {
     render() {
         return (
-
             <div className="App">
-
                 <SearchBar />
                 <LandingPage />
                 <Header />
