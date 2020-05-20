@@ -47,9 +47,9 @@ main{
   background-color: rgba(25, 77, 99, 0.671);
 }
 
-.SearchToolBox{
+/* .SearchToolBox{
   border: 1px solid black;
-}
+} */
 
 a.nav-link.nav-font.nav-link{
   font-family: 'Atma';

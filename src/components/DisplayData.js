@@ -10,13 +10,21 @@ function DisplayData(props) {
     const [photo, setPhoto] = useState([])
 
     function DisplayPhoto(item) {
+        let dogPhoto = process.env.PUBLIC_URL + "/imgs/goofyDog.jpeg"
+        let catPhoto = process.env.PUBLIC_URL + "/imgs/cat2.jpeg"
+        let randoPhoto = process.env.PUBLIC_URL + "/imgs/smilingDog.jpeg"
         if (item['photos'][0]) {
             if (item['photos'][0]['full'] !== null) {
                 return item['photos'][0]['full']
-            } else {
-                return null
             }
-
+        } else {
+            if (item['species'] === 'Cat') {
+                return catPhoto
+            } else if (item['species'] === 'Dog') {
+                return dogPhoto
+            } else {
+                return randoPhoto
+            }
 
         }
     }
@@ -74,19 +82,20 @@ function DisplayData(props) {
     // }
     return (
         <div>
-            {items.map((item) => (
-                <Card>
-                    <Image src={DisplayPhoto(item)} wrapped ui={false} />
-                    <Card.Content>
-                        <Card.Header>{DisplayName(item.name)}</Card.Header>
-                        <Card.Meta>Joined in 2016</Card.Meta>
-                        <Card.Description>
-                            {DisplayName(item.name)} is a {item.breeds.primary} living in Nashville.
+            <Card.Group itemsPerRow={3}>
+                {items.map((item) => (
+                    <Card >
+                        <Image src={DisplayPhoto(item)} wrapped ui={false} />
+                        <Card.Content>
+                            <Card.Header>{DisplayName(item.name)}</Card.Header>
+                            <Card.Meta>Joined in 2016</Card.Meta>
+                            <Card.Description>
+                                {DisplayName(item.name)} is a {item.breeds.primary} living in Nashville.
                 </Card.Description>
-                    </Card.Content>
-                </Card>
-            ))}
-
+                        </Card.Content>
+                    </Card>
+                ))}
+            </Card.Group>
             {/* {items.map(item => (
                 <li key={makeid(5)}>
                     {DisplayName(item.name)}: {item.type} | {item.breeds.primary}|

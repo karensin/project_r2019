@@ -7,6 +7,7 @@ import Expand from './Expand.js';
 import GetData from './GetData.js';
 import { boundChangePetData } from '../Redux/actions'
 import DisplayData from './DisplayData.js';
+import { Icon, Input } from 'semantic-ui-react'
 
 
 const domain = "https://api.petfinder.com";
@@ -75,21 +76,24 @@ class SearchTool extends Component {
                 <Row>
                     <Col>
                         <Container className="SearchToolBox">
-                            <Form>
-                                <FormControl type="text" placeholder="Search" className="mr-sm-2 w-50" />
-                                <Button variant="outline-light">Search</Button>
+                            <Form >
+                                {/* <Input
+                                    icon={<Icon name='search' inverted circular link />}
+                                    placeholder='Search...'
+                                /> */}
+                                {/* <Button variant="outline-light">Search</Button> */}
                                 <Row>
-                                    <ButtonToolbar>
-                                        <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
-                                            <ToggleButton value={'dog'}>Dog</ToggleButton>
-                                            <ToggleButton value={'cat'}>Cat</ToggleButton>
-                                        </ToggleButtonGroup>
-                                    </ButtonToolbar>
+                                    {/* <ButtonToolbar> */}
+                                    <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
+                                        <ToggleButton value={'dog'}>Dog</ToggleButton>
+                                        <ToggleButton value={'cat'}>Cat</ToggleButton>
+                                    </ToggleButtonGroup>
+                                    {/* </ButtonToolbar> */}
                                 </Row>
                                 <Expand />
-                                <Button >
+                                {/* <Button >
                                     Search
-                    </Button>
+                    </Button> */}
                             </Form>
                         </Container>
                     </Col>
