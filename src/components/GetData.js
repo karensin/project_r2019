@@ -20,7 +20,6 @@ class GetData extends React.Component {
 
     updateData() {
         const petState = store.getState()
-        // console.log(petState, petState['petData'][0]['photos'][0]['small'], 'what')
         this.setState({
             items: petState.petData
         })

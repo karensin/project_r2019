@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import GetData from './GetData'
-import { Image, Card, Icon } from 'semantic-ui-react'
+import { Item } from 'semantic-ui-react'
+import { Icon, Label } from 'semantic-ui-react'
 
+// import { Image, Card, Icon } from 'semantic-ui-react'
 
+// import { Container, Row, Col } from 'react-bootstrap';
 
 // use react library 'card' to display each pet's breed, age, photo, 
 function DisplayData(props) {
@@ -56,6 +59,35 @@ function DisplayData(props) {
         }
         return result;
     }
+    //cats children 
+    function tag(item) {
+        let tags = []
+        for (let speices in item['environment']) {
+            console.log('did u run', speices)
+            if (item['environment'][speices] !== null) {
+                if (item['environment'][speices] === true) {
+                    tags.push(<Label> {speices} friendly</Label>)
+                }
+            }
+        }
+        for (let attribute in item['attributes']) {
+            if (item['attributes'][attribute] !== null) {
+                if (item['attributes'][attribute] === true) {
+                    tags.push(<Label> {attribute} </Label>)
+                }
+            }
+        }
+        return tags
+
+    }
+    function description(description) {
+        let str = '!@#$%^&*()?><./;{}|'
+        if (description.includes(...str)) {
+
+        }
+    }
+
+
 
     useEffect(() => {
         function mapItems() {
@@ -69,7 +101,7 @@ function DisplayData(props) {
 
             }
         }
-        console.log(DisplayName('**karen'))
+        // console.log(DisplayName('**karen'))
         mapItems()
     }, [items])
     // {
@@ -80,22 +112,36 @@ function DisplayData(props) {
     //         </li>
     //     ))
     // }
+    function getColor(item) {
+        if (item['colors'] !== null) {
+            if (item['colors'][['primary']]) {
+                return item['colors']['primary']
+            }
+
+        } else {
+            return null
+        }
+    }
     return (
         <div>
-            <Card.Group itemsPerRow={3}>
+            <Item.Group>
                 {items.map((item) => (
-                    <Card >
-                        <Image src={DisplayPhoto(item)} wrapped ui={false} />
-                        <Card.Content>
-                            <Card.Header>{DisplayName(item.name)}</Card.Header>
-                            <Card.Meta>Joined in 2016</Card.Meta>
-                            <Card.Description>
-                                {DisplayName(item.name)} is a {item.breeds.primary} living in Nashville.
-                </Card.Description>
-                        </Card.Content>
-                    </Card>
+                    <Item className="columnBox">
+                        <Item.Image className="crop" size='medium' src={DisplayPhoto(item)} wrapped ui={false} />
+                        <Item.Content>
+                            <Item.Header>{DisplayName(item.name)} {item.age}</Item.Header>
+                            <Item.Meta>   For adoption please contact
+                                  <Icon name='mail' />  {item['contact']['email']}
+                                <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
+                            <Item.Description>
+                                {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary}waiting to join your family!
+                                Joined in {item.published_at}:
+                            </Item.Description>
+                            <Item.Extra>  {tag(item)}</Item.Extra>
+                        </Item.Content>
+                    </Item>
                 ))}
-            </Card.Group>
+            </Item.Group>
             {/* {items.map(item => (
                 <li key={makeid(5)}>
                     {DisplayName(item.name)}: {item.type} | {item.breeds.primary}|

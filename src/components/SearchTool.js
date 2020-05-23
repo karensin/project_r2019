@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormControl } from 'react-bootstrap'
-import { ButtonToolbar, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
+import { ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import GetData from './GetData.js';
 import { boundChangePetData } from '../Redux/actions'
 import DisplayData from './DisplayData.js';
-import { Icon, Input } from 'semantic-ui-react'
+import { Icon, Input, Button } from 'semantic-ui-react'
 
 
 const domain = "https://api.petfinder.com";
@@ -19,6 +19,10 @@ class SearchTool extends Component {
         super()
         this.state = {
             petType: 'Dog',
+            page: '1',
+            location: '94112',
+            sort: '-recent',
+            good_with_children: 'true'
         }
     }
 
@@ -37,9 +41,14 @@ class SearchTool extends Component {
     async requestData() {
         const params = {
             type: this.state.petType,
+            page: this.state.page,
+            location: this.state.location,
+            sort: this.state.sort,
+            good_with_children: this.state.good_with_children,
         }
-        var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
 
+        var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+        console.log(queryString, 'queryString', params, 'params')
         const bearer = `Bearer ${this.token}`;
         try {
             //teach string interpolation 
@@ -69,37 +78,61 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
     }
+    async onClickPageNext() {
 
+        this.setState({
+            page: this.state.page += 1
+        });
+
+        await this.getToken();
+        await this.requestData();
+    }
+    async onClickPagePrev() {
+        if (this.state.page === 1) {
+            console.log('first Page')
+            return
+        }
+        this.setState({
+            page: this.state.page -= 1
+        });
+        await this.getToken();
+        await this.requestData();
+    }
     render() {
         return (
             <Container>
                 <Row>
-                    <Col>
-                        <Container className="SearchToolBox">
-                            <Form >
-                                {/* <Input
+                    <Col className="SearchToolBox col-2 float-left">
+                        <Form >
+                            {/* <Input
                                     icon={<Icon name='search' inverted circular link />}
                                     placeholder='Search...'
                                 /> */}
-                                {/* <Button variant="outline-light">Search</Button> */}
-                                <Row>
-                                    {/* <ButtonToolbar> */}
+                            {/* <Button variant="outline-light">Search</Button> */}
+                            <Row>
+                                {/* <ButtonToolbar> */}
+                                <Button.Group>
                                     <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
-                                        <ToggleButton value={'dog'}>Dog</ToggleButton>
-                                        <ToggleButton value={'cat'}>Cat</ToggleButton>
+                                        <ToggleButton variant="secondary" size="lg" value={'dog'}>Dog</ToggleButton>
+                                        <Button.Or />
+                                        <ToggleButton variant="secondary" size="lg" value={'cat'}>Cat</ToggleButton>
                                     </ToggleButtonGroup>
-                                    {/* </ButtonToolbar> */}
-                                </Row>
-                                <Expand />
-                                {/* <Button >
+                                </Button.Group>
+                                {/* </ButtonToolbar> */}
+                            </Row>
+                            <Expand />
+                            {/* <Button >
                                     Search
                     </Button> */}
-                            </Form>
-                        </Container>
+                        </Form>
                     </Col>
-                    <Col>
+                    <Col className="displayData col-8">
                         <Container>
-                            <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
+                            <Row>
+                                <Col> <Button variant="warning" onClick={this.onClickPagePrev.bind(this)}> Prev </Button>  </Col>
+                                <Col> <Button variant="warning" onClick={this.onClickPageNext.bind(this)}> Next</Button></Col>
+                                <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
+                            </Row>
                         </Container>
                     </Col>
                 </Row>

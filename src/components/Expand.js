@@ -1,14 +1,15 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ButtonToolbar, Button, ToggleButton, Collapse, ToggleButtonGroup } from 'react-bootstrap/'
+import { ButtonToolbar, Button, ToggleButton, Collapse, ToggleButtonGroup, Container } from 'react-bootstrap/'
 import { useState } from 'react';
 
 function Expand() {
     const [open, setOpen] = useState(false);
 
     return (
-        <div>
+        <Container>
             <Button
+                variant="secondary" size="lg"
                 onClick={() => setOpen(!open)}
                 aria-controls="example-collapse-text"
                 aria-expanded={open}
@@ -46,7 +47,7 @@ function Expand() {
                     </ButtonToolbar>
                 </div>
             </Collapse>
-        </div>
+        </Container>
     );
 }
 
