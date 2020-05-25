@@ -63,7 +63,7 @@ function DisplayData(props) {
     function tag(item) {
         let tags = []
         for (let speices in item['environment']) {
-            console.log('did u run', speices)
+
             if (item['environment'][speices] !== null) {
                 if (item['environment'][speices] === true) {
                     tags.push(<Label> {speices} friendly</Label>)
@@ -80,16 +80,45 @@ function DisplayData(props) {
         return tags
 
     }
-    function description(description) {
-        let str = '!@#$%^&*()?><./;{}|'
-        if (description.includes(...str)) {
+    // function description(description) {
+    //     let str = '!@#$%^&*()?><./;{}|'
+    //     if (description.includes(...str)) {
+
+    //     }
+    // }
+
+    function getTimeDiff(dataTime) {
+        // let validMonth=false
+        //format= NOW year - Past Year    AND Now Month-Past Month +1 
+        let getToday = new Date()
+        let year = getToday.getFullYear() //return present year
+        // console.log(year, 'year')
+        let month = getToday.getUTCMonth(); //return present month 
+        // console.log(month + 1, 'month')
+
+        let past = new Date(dataTime)
+        let pastYear = past.getFullYear()
+        let pastMonth = past.getUTCMonth()
+        if (month < pastMonth) {
 
         }
+        let yearDiff = year - pastYear
+        let monthDiff = month - pastMonth + 1
+        if (monthDiff < 0) {
+            monthDiff *= -1
+        }
+
+        let result = yearDiff + ' Year and ' + monthDiff + ' Months'
+        return result
+
     }
 
-
-
+    function getYear(dataTime) {
+        let d = new Date(dataTime)
+        return d.getFullYear()
+    }
     useEffect(() => {
+
         function mapItems() {
             // console.log(items[0]['primary_photo_cropped']['small'])
             for (let i = 0; i < items.length; i++) {
@@ -130,12 +159,12 @@ function DisplayData(props) {
                         <Item.Image className="crop" size='medium' src={DisplayPhoto(item)} wrapped ui={false} />
                         <Item.Content>
                             <Item.Header>{DisplayName(item.name)} {item.age}</Item.Header>
-                            <Item.Meta>   For adoption please contact
-                                  <Icon name='mail' />  {item['contact']['email']}
+                            <Item.Meta>
+                                <Icon name='mail' />  {item['contact']['email']}
                                 <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
                             <Item.Description>
-                                {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary}waiting to join your family!
-                                Joined in {item.published_at}:
+                                {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary}
+                                 admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
                             </Item.Description>
                             <Item.Extra>  {tag(item)}</Item.Extra>
                         </Item.Content>

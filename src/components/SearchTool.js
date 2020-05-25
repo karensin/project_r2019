@@ -129,8 +129,8 @@ class SearchTool extends Component {
                     <Col className="displayData col-8">
                         <Container>
                             <Row>
-                                <Col> <Button variant="warning" onClick={this.onClickPagePrev.bind(this)}> Prev </Button>  </Col>
-                                <Col> <Button variant="warning" onClick={this.onClickPageNext.bind(this)}> Next</Button></Col>
+                                <Col > <Button className="float-left " variant="warning" onClick={this.onClickPagePrev.bind(this)}> Prev </Button>  </Col>
+                                <Col > <Button className="float-right" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next</Button></Col>
                                 <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
                             </Row>
                         </Container>
