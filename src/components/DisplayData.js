@@ -120,13 +120,10 @@ function DisplayData(props) {
     useEffect(() => {
 
         function mapItems() {
-            // console.log(items[0]['primary_photo_cropped']['small'])
             for (let i = 0; i < items.length; i++) {
                 let item = items[i]
                 console.log(item, '_______', item['photos'], item['photos'][0], 'lookie')
-                // if (items['primary_photo_cropped']) {
-                //     console.log(item['primary_photo_cropped']['small'], '__________hehe')
-                // }
+
 
             }
         }
@@ -164,7 +161,7 @@ function DisplayData(props) {
                                 <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
                             <Item.Description>
                                 {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary}
-                                 admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
+                                 admitted to the shelter since {getYear(item.published_at)} and has been in the shelters for {getTimeDiff(item.published_at)}
                             </Item.Description>
                             <Item.Extra>  {tag(item)}</Item.Extra>
                         </Item.Content>

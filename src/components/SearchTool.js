@@ -5,7 +5,7 @@ import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import GetData from './GetData.js';
-import { boundChangePetData } from '../Redux/actions'
+import { boundChangePetData, boundChangePetAge } from '../Redux/actions'
 import DisplayData from './DisplayData.js';
 import { Icon, Input, Button } from 'semantic-ui-react'
 
@@ -22,7 +22,11 @@ class SearchTool extends Component {
             page: '1',
             location: '94112',
             sort: '-recent',
-            good_with_children: 'true'
+            // good_with_children: '',
+            // good_with_dogs: null,
+            // good_with_cats: null,
+            age: 'young',
+            // coat: null
         }
     }
 
@@ -44,7 +48,8 @@ class SearchTool extends Component {
             page: this.state.page,
             location: this.state.location,
             sort: this.state.sort,
-            good_with_children: this.state.good_with_children,
+            age: this.state.age
+            // good_with_children: this.state.good_with_children,
         }
 
         var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
@@ -65,7 +70,7 @@ class SearchTool extends Component {
                 items: jsonRes.animals
             });
             boundChangePetData(jsonRes.animals)
-
+            // boundChangePetAge(jsonRes.animals)
         } catch (error) {
             console.log(error);
         }
@@ -74,6 +79,13 @@ class SearchTool extends Component {
     async handleChange(val) {
         this.setState({
             petType: val
+        });
+        await this.getToken();
+        await this.requestData();
+    }
+    async handleChangePetAge(val) {
+        this.setState({
+            age: val
         });
         await this.getToken();
         await this.requestData();
@@ -118,6 +130,14 @@ class SearchTool extends Component {
                                         <ToggleButton variant="secondary" size="lg" value={'cat'}>Cat</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Button.Group>
+                                <ButtonToolbar>
+                                    <ToggleButtonGroup type="checkbox" onChange={this.handleChangePetAge.bind(this)}>
+                                        <ToggleButton value={'baby'}>baby</ToggleButton>
+                                        <ToggleButton value={'young'}>young </ToggleButton>
+                                        <ToggleButton value={'adult'}>adult</ToggleButton>
+                                        <ToggleButton value={'senior'}>Senior</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </ButtonToolbar>
                                 {/* </ButtonToolbar> */}
                             </Row>
                             <Expand />

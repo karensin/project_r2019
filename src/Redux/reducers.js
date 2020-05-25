@@ -3,7 +3,7 @@ const initialState = {
     petType: 'dog',
     petData: [],
     vistorCount: 0,
-
+    petAge: ''
 }
 
 
