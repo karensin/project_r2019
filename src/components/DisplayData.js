@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import GetData from './GetData'
 import { Item } from 'semantic-ui-react'
 import { Icon, Label } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
 // import { Image, Card, Icon } from 'semantic-ui-react'
 
@@ -155,16 +156,21 @@ function DisplayData(props) {
                     <Item className="columnBox">
                         <Item.Image className="crop" size='medium' src={DisplayPhoto(item)} wrapped ui={false} />
                         <Item.Content>
-                            <Item.Header>{DisplayName(item.name)} {item.age}</Item.Header>
+                            <Item.Header>{DisplayName(item.name)} </Item.Header>
                             <Item.Meta>
                                 <Icon name='mail' />  {item['contact']['email']}
                                 <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
                             <Item.Description>
+                                Age: {item.age}
+                                Gender: {item.gender}
+                                Size: {item.size}
                                 {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary}
                                  admitted to the shelter since {getYear(item.published_at)} and has been in the shelters for {getTimeDiff(item.published_at)}
+
                             </Item.Description>
                             <Item.Extra>  {tag(item)}</Item.Extra>
                         </Item.Content>
+                        <Button className="detailsbtn" href={item['url']}> Click for more details </Button>
                     </Item>
                 ))}
             </Item.Group>

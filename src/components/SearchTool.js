@@ -236,9 +236,12 @@ class SearchTool extends Component {
                         <Ref innerRef={this.contextRef}>
                             <Container>
                                 {/* <Segment position='right'> 'data goes here' */}
-
-                                <Col > <Button className="float-left " variant="warning" onClick={this.onClickPagePrev.bind(this)}> Prev </Button>  </Col>
-                                <Col > <Button className="float-right" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next</Button></Col>
+                                <Sticky  >
+                                    <Container className="directionBar">
+                                        <Button className=" directionbtn float-left" variant="warning" onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
+                                        <Button className="directionbtn float-right" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
+                                    </Container>
+                                </Sticky>
                                 <Col className="displayData">
                                     <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
                                 </Col>
@@ -271,17 +274,25 @@ class SearchTool extends Component {
                                                     <Button variant="secondary" onClick={this.handleChangeChildren.bind(this)} value={'good_with_children'}>children</Button>
                                                 </Button.Group>
                                             </ButtonToolbar>
-                                            <div> Coat</div>
-                                            <ButtonToolbar className="m-1">
-                                                <ToggleButtonGroup type="checkbox" onChange={this.handleChangePetCoat.bind(this)}>
+                                            <div> Coat length</div>
+                                            {/* <Container className=''> */}
+                                            <ButtonToolbar className=" m-1">
+                                                <ToggleButtonGroup className='wrapper' type="checkbox" onChange={this.handleChangePetCoat.bind(this)}>
                                                     <ToggleButton variant="secondary" value={'short'}>short</ToggleButton>
                                                     <ToggleButton variant="secondary" value={'medium'}>medium </ToggleButton>
                                                     <ToggleButton variant="secondary" value={'long'}>long</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </ButtonToolbar>
+                                            <div> Coat type</div>
+                                            <ButtonToolbar className=" m-1">
+                                                <ToggleButtonGroup className='wrapper' type="checkbox" onChange={this.handleChangePetCoat.bind(this)}>
+
                                                     <ToggleButton variant="secondary" value={'wire'}>wire</ToggleButton>
                                                     <ToggleButton variant="secondary" value={'hairless'}>hairless</ToggleButton>
                                                     <ToggleButton variant="secondary" value={'curly'}>curly</ToggleButton>
                                                 </ToggleButtonGroup>
                                             </ButtonToolbar>
+                                            {/* </Container> */}
                                             {/* <Checkbox
                                                     checked={active}
                                                     label='Activate Sticky on right'
@@ -291,34 +302,32 @@ class SearchTool extends Component {
                                         </Segment>
                                     </Sticky>
                                 </Rail>
-
-
                             </Container>
                         </Ref>
                     </Grid.Column>
                 </Grid>
-                <Row>
-                    <Col className="SearchToolBox col-2 float-left">
-                        <Form >
-                            {/* <Input
+
+                {/* <Col className="SearchToolBox col-2 float-left"> */}
+
+                {/* <Input
                                     icon={<Icon name='search' inverted circular link />}
                                     placeholder='Search...'
                                 /> */}
-                            {/* <Button variant="outline-light">Search</Button> */}
-                            <Row>
-                                {/* <ButtonToolbar> */}
+                {/* <Button variant="outline-light">Search</Button> */}
+
+                {/* <ButtonToolbar> */}
 
 
-                                {/* </ButtonToolbar> */}
-                            </Row>
-                            {/* <Expand /> */}
-                            {/* <Button >
+                {/* </ButtonToolbar> */}
+
+                {/* <Expand /> */}
+                {/* <Button >
                                     Search
                     </Button> */}
-                        </Form>
-                    </Col>
 
-                </Row>
+                {/* </Col> */}
+
+                {/* </Row> */}
 
             </Container >
         )
