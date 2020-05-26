@@ -1,34 +1,65 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import GetData from './GetData.js';
-import { boundChangePetData, boundChangePetAge } from '../Redux/actions'
+import { boundChangePetData, boundChangePetAge, boundChangePetEnvoriment } from '../Redux/actions'
 import DisplayData from './DisplayData.js';
 import { Icon, Input, Button } from 'semantic-ui-react'
+import {
+    Checkbox,
+    Grid,
+    Header,
+    Image,
+    Item,
+    Rail,
+    Ref,
+    Segment,
+    Sticky,
+} from 'semantic-ui-react';
+import _ from 'lodash';
+import { Dropdown } from 'semantic-ui-react'
+
+// const ageOptions = [
+//     { key: 'baby', text: 'Baby', value: 'baby' },
+//     { key: 'young', text: 'Young', value: 'young' },
+//     { key: 'adult', text: 'Adult', value: 'adult' },
+//     { key: 'Senior', text: 'Senior', value: 'senior' },
 
 
+// ]
 const domain = "https://api.petfinder.com";
 const tokenUrl = '/v2/oauth2/token';
 const url = `/v2/animals`;
+// const Placeholder = () => <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
 
+// function DropdownExampleMultipleSelection() {
+//     return (<Dropdown placeholder='Age' fluid multiple selection options={ageOptions} />)
+// }
 class SearchTool extends Component {
+    contextRef = createRef()
     constructor() {
         super()
         this.state = {
+            active: true,
             petType: 'Dog',
             page: '1',
             location: '94112',
             sort: '-recent',
-            // good_with_children: '',
-            // good_with_dogs: null,
-            // good_with_cats: null,
-            age: 'young',
-            // coat: null
+            coat: '',
+            age: '',
+            good_with_children: false,
+            good_with_dogs: false,
+            good_with_cats: false
+
+
         }
     }
+
+    handleToggle = () =>
+        this.setState((prevState) => ({ active: !prevState.active }))
 
     async getToken() {
         const response = await fetch(`${domain}${tokenUrl}`, {
@@ -48,8 +79,11 @@ class SearchTool extends Component {
             page: this.state.page,
             location: this.state.location,
             sort: this.state.sort,
-            age: this.state.age
-            // good_with_children: this.state.good_with_children,
+            age: this.state.age,
+            good_with_children: this.state.good_with_children,
+            good_with_dogs: this.state.good_with_dogs,
+            good_with_cats: this.state.good_with_cats,
+            coat: this.state.coat
         }
 
         var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
@@ -83,10 +117,92 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
     }
+
     async handleChangePetAge(val) {
+        let newVal = this.state.age
+        if (this.state.age !== '') {
+            newVal = this.state.age + ' ,' + val
+            console.log(newVal, 'newVal')
+        } else {
+            newVal = val
+        }
+        console.log(newVal, 'newVALstate')
         this.setState({
-            age: val
+            age: newVal
         });
+        await this.getToken();
+        await this.requestData();
+    }
+    async handleChangePetCoat(val) {
+        let newVal = this.state.coat
+        if (this.state.age !== '') {
+            newVal = this.state.coat + ' ,' + val
+            console.log(newVal, 'newVal')
+        } else {
+            newVal = val
+        }
+        console.log(newVal, 'newVALstate')
+        this.setState({
+            coat: newVal
+        });
+        await this.getToken();
+        await this.requestData();
+    }
+
+
+    async handleChangeCats(val) {
+        // let newVal = this.state.environment
+        console.log('valkkk', val)
+        if (this.state.good_with_cats === '') {
+            this.setState({
+                good_with_cats: true
+            });
+        }
+        if (this.state.good_with_cats === true) {
+            this.setState({
+                good_with_cats: false
+            });
+        }
+        if (this.state.good_with_cats === false) {
+            this.setState({
+                good_with_cats: true
+            });
+        }
+
+        await this.getToken();
+        await this.requestData();
+    }
+    async handleChangeDogs(val) {
+        // let newVal = this.state.environment
+        console.log('valkkk', val)
+
+        if (this.state.good_with_dogs === true) {
+            this.setState({
+                good_with_dogs: false
+            });
+        }
+        if (this.state.good_with_cats === false) {
+            this.setState({
+                good_with_dogs: true
+            });
+        }
+
+        await this.getToken();
+        await this.requestData();
+    }
+    async handleChangeChildren(val) {
+        console.log('valkkk', val)
+        if (this.state.good_with_children === true) {
+            this.setState({
+                good_with_children: false
+            });
+        }
+        if (this.state.good_with_children === false) {
+            this.setState({
+                good_with_children: true
+            });
+        }
+
         await this.getToken();
         await this.requestData();
     }
@@ -111,8 +227,76 @@ class SearchTool extends Component {
         await this.requestData();
     }
     render() {
+        const { active } = this.state
+
         return (
             <Container>
+                <Grid centered columns={2}>
+                    <Grid.Column>
+                        <Ref innerRef={this.contextRef}>
+                            <Container>
+                                {/* <Segment position='right'> 'data goes here' */}
+
+                                <Col > <Button className="float-left " variant="warning" onClick={this.onClickPagePrev.bind(this)}> Prev </Button>  </Col>
+                                <Col > <Button className="float-right" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next</Button></Col>
+                                <Col className="displayData">
+                                    <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
+                                </Col>
+                                <Rail position='left'>
+                                    <Sticky className="stickySearchBar" context={this.contextRef}>
+                                        <Segment>
+                                            <div> Pick your favorite furry </div>
+                                            <Button.Group>
+                                                <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
+                                                    <div> Species </div>
+                                                    <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'dog'}>Dog</ToggleButton>
+                                                    <Button.Or />
+                                                    <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'cat'}>Cat</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </Button.Group>
+                                            <div> Age </div>
+                                            <ButtonToolbar className="m-1">
+                                                <ToggleButtonGroup type="checkbox" onChange={this.handleChangePetAge.bind(this)}>
+                                                    <ToggleButton variant="secondary" value={'baby'}>baby</ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'young'}>young </ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'adult'}>adult</ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'senior'}>Senior</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </ButtonToolbar>
+                                            <div> Environment</div>
+                                            <ButtonToolbar className="m-1">
+                                                <Button.Group type="checkbox" >
+                                                    <Button variant="secondary" onClick={this.handleChangeCats.bind(this)} value={'good_with_cats'}>cats</Button>
+                                                    <Button variant="secondary" onClick={this.handleChangeDogs.bind(this)} value={'good_with_dogs'}>dogs </Button>
+                                                    <Button variant="secondary" onClick={this.handleChangeChildren.bind(this)} value={'good_with_children'}>children</Button>
+                                                </Button.Group>
+                                            </ButtonToolbar>
+                                            <div> Coat</div>
+                                            <ButtonToolbar className="m-1">
+                                                <ToggleButtonGroup type="checkbox" onChange={this.handleChangePetCoat.bind(this)}>
+                                                    <ToggleButton variant="secondary" value={'short'}>short</ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'medium'}>medium </ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'long'}>long</ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'wire'}>wire</ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'hairless'}>hairless</ToggleButton>
+                                                    <ToggleButton variant="secondary" value={'curly'}>curly</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </ButtonToolbar>
+                                            {/* <Checkbox
+                                                    checked={active}
+                                                    label='Activate Sticky on right'
+                                                    onChange={this.handleToggle}
+                                                    toggle
+                                                /> */}
+                                        </Segment>
+                                    </Sticky>
+                                </Rail>
+
+
+                            </Container>
+                        </Ref>
+                    </Grid.Column>
+                </Grid>
                 <Row>
                     <Col className="SearchToolBox col-2 float-left">
                         <Form >
@@ -123,41 +307,20 @@ class SearchTool extends Component {
                             {/* <Button variant="outline-light">Search</Button> */}
                             <Row>
                                 {/* <ButtonToolbar> */}
-                                <Button.Group>
-                                    <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
-                                        <ToggleButton variant="secondary" size="lg" value={'dog'}>Dog</ToggleButton>
-                                        <Button.Or />
-                                        <ToggleButton variant="secondary" size="lg" value={'cat'}>Cat</ToggleButton>
-                                    </ToggleButtonGroup>
-                                </Button.Group>
-                                <ButtonToolbar>
-                                    <ToggleButtonGroup type="checkbox" onChange={this.handleChangePetAge.bind(this)}>
-                                        <ToggleButton value={'baby'}>baby</ToggleButton>
-                                        <ToggleButton value={'young'}>young </ToggleButton>
-                                        <ToggleButton value={'adult'}>adult</ToggleButton>
-                                        <ToggleButton value={'senior'}>Senior</ToggleButton>
-                                    </ToggleButtonGroup>
-                                </ButtonToolbar>
+
+
                                 {/* </ButtonToolbar> */}
                             </Row>
-                            <Expand />
+                            {/* <Expand /> */}
                             {/* <Button >
                                     Search
                     </Button> */}
                         </Form>
                     </Col>
-                    <Col className="displayData col-8">
-                        <Container>
-                            <Row>
-                                <Col > <Button className="float-left " variant="warning" onClick={this.onClickPagePrev.bind(this)}> Prev </Button>  </Col>
-                                <Col > <Button className="float-right" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next</Button></Col>
-                                <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
-                            </Row>
-                        </Container>
-                    </Col>
+
                 </Row>
 
-            </Container>
+            </Container >
         )
     }
 }

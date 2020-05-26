@@ -3,7 +3,8 @@ const initialState = {
     petType: 'dog',
     petData: [],
     vistorCount: 0,
-    petAge: ''
+    petAge: '',
+    petEnvoriment: ''
 }
 
 
@@ -28,6 +29,11 @@ const petReducer = (state, action) => {
             return {
                 ...state,
                 petAge: action.petAge
+            }
+        case 'PET_ENVIRONMENT':
+            return {
+                ...state,
+                petEnvoriment: action.petEnvoriment
             }
         case 'VISTOR_COUNT':
             return {
