@@ -230,24 +230,27 @@ class SearchTool extends Component {
         const { active } = this.state
 
         return (
-            <Container>
-                <Grid centered columns={2}>
-                    <Grid.Column>
+            <Container h-100>
+                <Grid >
+                    <Grid.Column columns={2}>
                         <Ref innerRef={this.contextRef}>
-                            <Container>
+                            <Container >
                                 {/* <Segment position='right'> 'data goes here' */}
+
                                 <Sticky  >
-                                    <Container className="directionBar">
-                                        <Button className=" directionbtn float-left" variant="warning" onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
-                                        <Button className="directionbtn float-right" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
+                                    <Container className="directionBar d-flex justify-content-end">
+                                        <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
+                                        <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
                                     </Container>
                                 </Sticky>
-                                <Col className="displayData">
-                                    <GetData items={this.state.items} isLoaded={this.state.isLoaded} />
-                                </Col>
-                                <Rail position='left'>
-                                    <Sticky className="stickySearchBar" context={this.contextRef}>
-                                        <Segment>
+
+                                <Container className="displayData mt-auto p-2">
+                                    <GetData className="displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded} />
+                                </Container>
+
+                                <Rail >
+                                    <Sticky className="stickySearchBar" >
+                                        <Segment className="positionSticky">
                                             <div> Pick your favorite furry </div>
                                             <Button.Group>
                                                 <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
@@ -255,6 +258,8 @@ class SearchTool extends Component {
                                                     <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'dog'}>Dog</ToggleButton>
                                                     <Button.Or />
                                                     <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'cat'}>Cat</ToggleButton>
+                                                    <Button.Or />
+                                                    <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'rabbit'}>Rabbit</ToggleButton>
                                                 </ToggleButtonGroup>
                                             </Button.Group>
                                             <div> Age </div>
@@ -302,6 +307,7 @@ class SearchTool extends Component {
                                         </Segment>
                                     </Sticky>
                                 </Rail>
+
                             </Container>
                         </Ref>
                     </Grid.Column>

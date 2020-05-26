@@ -19,14 +19,14 @@ function Expand() {
             <Collapse in={open}>
                 <div>
                     Age
-                    <ButtonToolbar>
+                    {/* <ButtonToolbar>
                         <ToggleButtonGroup type="checkbox">
-                            <ToggleButton value={1}>Puppy</ToggleButton>
-                            <ToggleButton value={2}>Junior </ToggleButton>
-                            <ToggleButton value={3}>Adult</ToggleButton>
-                            <ToggleButton value={4}>Senior</ToggleButton>
+                            <ToggleButton value={'baby'}>baby</ToggleButton>
+                            <ToggleButton value={'young'}>young </ToggleButton>
+                            <ToggleButton value={'adult'}>adult</ToggleButton>
+                            <ToggleButton value={'senior'}>Senior</ToggleButton>
                         </ToggleButtonGroup>
-                    </ButtonToolbar>
+                    </ButtonToolbar> */}
                     Coat
                     <ButtonToolbar>
                         <ToggleButtonGroup type="checkbox" >

@@ -3,6 +3,7 @@ import GetData from './GetData'
 import { Item } from 'semantic-ui-react'
 import { Icon, Label } from 'semantic-ui-react'
 import { Button } from 'semantic-ui-react'
+import { Container, Row, Col } from 'react-bootstrap';
 
 // import { Image, Card, Icon } from 'semantic-ui-react'
 
@@ -150,7 +151,7 @@ function DisplayData(props) {
         }
     }
     return (
-        <div>
+        <Container>
             <Item.Group>
                 {items.map((item) => (
                     <Item className="columnBox">
@@ -161,12 +162,12 @@ function DisplayData(props) {
                                 <Icon name='mail' />  {item['contact']['email']}
                                 <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
                             <Item.Description>
-                                Age: {item.age}
-                                Gender: {item.gender}
-                                Size: {item.size}
-                                {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary}
-                                 admitted to the shelter since {getYear(item.published_at)} and has been in the shelters for {getTimeDiff(item.published_at)}
+                                <Label>  <strong> Age:</strong> {item.age} </Label>
+                                <Label><strong> Gender: </strong>  {item.gender}</Label>
+                                <Label><strong>  Size: </strong>   {item.size}</Label>
 
+                                <br /> <div> {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary},our fury friend was admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
+                                </div>
                             </Item.Description>
                             <Item.Extra>  {tag(item)}</Item.Extra>
                         </Item.Content>
@@ -181,7 +182,7 @@ function DisplayData(props) {
                 </li>
             ))} */}
             {/* {console.log(items, 'props')} */}
-        </div>
+        </Container>
     )
 
 }
