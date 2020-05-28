@@ -129,14 +129,17 @@ span.background.labelFont.navbar-brand{
 .stickySearchBar{
   margin-top: 20px;
 }
-.speciesBtn{
+.label.speciesBtn{
   min-width: 10px;
+  width: 200px;
   align-items: center;
   padding: 10px;
  
 }
 
- 
+ label.speciesBtn.btn.btn-secondary.btn-lg{
+    width: 75px;
+ }
 button, input {
     overflow: hidden;
     content: hidden ;
@@ -145,8 +148,9 @@ button, input {
    width: 75vh;
  }
  .directionbtn{
-  min-width: 280px;
+  min-width: 350px;
   min-height: 300px;
+  padding-bottom: 10px;
  }
  .button.ui.button.directionbtn {
   min-height: 25px;
@@ -178,17 +182,33 @@ a.ui.button.detailsbtn {
 .ui.segment {
     width: 85%;
 }
-.ToggleButton{
-  width: 60%;
-}
  
- .ui.segment.positionSticky {
-    left: 0;
-}
+ .stickyDirectionBar{
+   padding: 2px;
+ }
  .container.displayData{
-   width: 75%;
+  min-width: 500px;
+  width: 800px;
  }
  .container.directionBar{
    width: 600px;
-   justify-content: aroun;
+ 
+ 
  }
+main.header.h-100.landing.Aligner{
+
+}
+@media screen and (max-width: 1200px) {
+  .stickySearchBar{
+  visibility: hidden
+  }
+}
+.directionBar.d-flex.justify-content-around.container {
+    margin-right: 0;
+}
+.ui.rail {
+    left: 0;
+}
+input[type="text"] {
+    width: 230px;
+}

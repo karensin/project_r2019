@@ -226,6 +226,17 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
     }
+    async onChangeAreaCode(data) {
+        console.log(data, 'input_____')
+        if (data) {
+            this.setState({
+                location: data
+            })
+        }
+
+        await this.getToken();
+        await this.requestData();
+    }
     render() {
         const { active } = this.state
 
@@ -237,29 +248,34 @@ class SearchTool extends Component {
                             <Container >
                                 {/* <Segment position='right'> 'data goes here' */}
 
-                                <Sticky  >
-                                    <Container className="directionBar d-flex justify-content-end">
-                                        <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
-                                        <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
-                                    </Container>
-                                </Sticky>
-
                                 <Container className="displayData mt-auto p-2">
+                                    <Sticky className="stickyDirectionBar" >
+                                        <Row className=" justify-content-around">  <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
+                                            <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
+                                        </Row>
+                                    </Sticky>
+
                                     <GetData className="displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded} />
                                 </Container>
 
                                 <Rail >
                                     <Sticky className="stickySearchBar" >
                                         <Segment className="positionSticky">
+                                            <div> </div>
+                                            <Input
+                                                icon={<Icon name='search' inverted circular link />}
+                                                placeholder='Zip Code....'
+                                                onChange={this.onChangeAreaCode.bind(this)}
+                                            />
                                             <div> Pick your favorite furry </div>
                                             <Button.Group>
                                                 <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
                                                     <div> Species </div>
-                                                    <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'dog'}>Dog</ToggleButton>
+                                                    <ToggleButton variant="secondary" size='lg' className="speciesBtn" value={'dog'}>Dog</ToggleButton>
                                                     <Button.Or />
-                                                    <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'cat'}>Cat</ToggleButton>
+                                                    <ToggleButton variant="secondary" size='lg' className="speciesBtn" value={'cat'}>Cat</ToggleButton>
                                                     <Button.Or />
-                                                    <ToggleButton variant="secondary" className="speciesBtn" size="lg" value={'rabbit'}>Rabbit</ToggleButton>
+                                                    <ToggleButton variant="secondary" size='lg' className="speciesBtn" value={'rabbit'}>Rabbit</ToggleButton>
                                                 </ToggleButtonGroup>
                                             </Button.Group>
                                             <div> Age </div>
@@ -307,7 +323,6 @@ class SearchTool extends Component {
                                         </Segment>
                                     </Sticky>
                                 </Rail>
-
                             </Container>
                         </Ref>
                     </Grid.Column>
@@ -315,10 +330,7 @@ class SearchTool extends Component {
 
                 {/* <Col className="SearchToolBox col-2 float-left"> */}
 
-                {/* <Input
-                                    icon={<Icon name='search' inverted circular link />}
-                                    placeholder='Search...'
-                                /> */}
+
                 {/* <Button variant="outline-light">Search</Button> */}
 
                 {/* <ButtonToolbar> */}
