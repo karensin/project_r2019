@@ -1,13 +1,13 @@
 import React, { createRef, Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Form, FormControl } from 'react-bootstrap'
+// import { Form, FormControl } from 'react-bootstrap'
 import { ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap/'
 import Expand from './Expand.js';
 import GetData from './GetData.js';
 import { boundChangePetData, boundChangePetAge, boundChangePetEnvoriment } from '../Redux/actions'
 import DisplayData from './DisplayData.js';
-import { Icon, Input, Button } from 'semantic-ui-react'
+import { Icon, Input, Button, Form } from 'semantic-ui-react'
 import {
     Checkbox,
     Grid,
@@ -45,16 +45,17 @@ class SearchTool extends Component {
         this.state = {
             active: true,
             petType: 'Dog',
-            page: '1',
+            page: 1,
             location: '94112',
             sort: '-recent',
             coat: '',
             age: '',
             good_with_children: false,
             good_with_dogs: false,
-            good_with_cats: false
-
-
+            good_with_cats: false,
+            input: '',
+            hasError: false,
+            limit: '40'
         }
     }
 
@@ -83,7 +84,8 @@ class SearchTool extends Component {
             good_with_children: this.state.good_with_children,
             good_with_dogs: this.state.good_with_dogs,
             good_with_cats: this.state.good_with_cats,
-            coat: this.state.coat
+            coat: this.state.coat,
+            limit: this.state.limit
         }
 
         var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
@@ -99,11 +101,21 @@ class SearchTool extends Component {
                 }
             });
             const jsonRes = await res.json();
+
+            // if (jsonRes.status && jsonRes.status !== 200) {
+            //     console.log('failed')
+            //     this.setState({
+            //         hasError: true
+            //     })
+            //     return false
+            // }
             this.setState({
                 isLoaded: true,
                 items: jsonRes.animals
             });
             boundChangePetData(jsonRes.animals)
+            console.log(jsonRes, 'response')
+
             // boundChangePetAge(jsonRes.animals)
         } catch (error) {
             console.log(error);
@@ -121,7 +133,7 @@ class SearchTool extends Component {
     async handleChangePetAge(val) {
         let newVal = this.state.age
         if (this.state.age !== '') {
-            newVal = this.state.age + ' ,' + val
+            newVal = this.state.age + ',' + val
             console.log(newVal, 'newVal')
         } else {
             newVal = val
@@ -186,7 +198,6 @@ class SearchTool extends Component {
                 good_with_dogs: true
             });
         }
-
         await this.getToken();
         await this.requestData();
     }
@@ -202,7 +213,6 @@ class SearchTool extends Component {
                 good_with_children: true
             });
         }
-
         await this.getToken();
         await this.requestData();
     }
@@ -210,10 +220,12 @@ class SearchTool extends Component {
 
         this.setState({
             page: this.state.page += 1
-        });
 
+        });
+        console.log(this.state.page, 'page')
         await this.getToken();
         await this.requestData();
+
     }
     async onClickPagePrev() {
         if (this.state.page === 1) {
@@ -226,19 +238,56 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
     }
-    async onChangeAreaCode(data) {
-        console.log(data, 'input_____')
-        if (data) {
-            this.setState({
-                location: data
-            })
+    // async onChangeAreaCode(e) {
+    //     console.log(e, 'input_____')
+    //     if (data) {
+    //         this.setState({
+    //             location: data
+    //         })
+    //     }
+
+    //     await this.getToken();
+    //     await this.requestData();
+    // }
+    onChangeSearchCity(e) {
+        console.log(e.target.value, 'look at me')
+        this.setState({
+            input: e.target.value
+
+        })
+        if (this.onSubmitSearchCity) {
+            e.target.value = ''
         }
+
+        // setInput(e.target.value)
+    }
+    async onSubmitSearchCity(e, input) {
+        console.log(e, 'clicked')
+        e.preventDefault()
+
+        this.setState({
+            location: this.state.input,
+
+        })
+        this.setState({
+            input: ''
+        })
+
 
         await this.getToken();
         await this.requestData();
+
+
+        // return false
     }
+
     render() {
-        const { active } = this.state
+        // const { active } = this.state
+
+        // if (this.state.hasError === true) {
+        //     return <div> fak </div>
+        // }
+
 
         return (
             <Container h-100>
@@ -247,10 +296,10 @@ class SearchTool extends Component {
                         <Ref innerRef={this.contextRef}>
                             <Container >
                                 {/* <Segment position='right'> 'data goes here' */}
-
                                 <Container className="displayData mt-auto p-2">
                                     <Sticky className="stickyDirectionBar" >
-                                        <Row className=" justify-content-around">  <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
+                                        <Row className=" justify-content-around">
+                                            <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
                                             <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
                                         </Row>
                                     </Sticky>
@@ -262,11 +311,17 @@ class SearchTool extends Component {
                                     <Sticky className="stickySearchBar" >
                                         <Segment className="positionSticky">
                                             <div> </div>
-                                            <Input
-                                                icon={<Icon name='search' inverted circular link />}
-                                                placeholder='Zip Code....'
-                                                onChange={this.onChangeAreaCode.bind(this)}
-                                            />
+                                            <Form onSubmit={this.onSubmitSearchCity.bind(this)}>
+                                                <Form.Field type="submit">
+                                                    <Input
+                                                        placeholder='Zip Code....'
+
+                                                        onChange={this.onChangeSearchCity.bind(this)}
+                                                        icon={<Icon name='search' inverted circular link onClick={this.onSubmitSearchCity.bind(this)} />}
+                                                    />
+
+                                                </Form.Field>
+                                            </Form>
                                             <div> Pick your favorite furry </div>
                                             <Button.Group>
                                                 <ToggleButtonGroup type="radio" name="options" onChange={this.handleChange.bind(this)}>
