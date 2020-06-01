@@ -5,17 +5,16 @@ html{
 }
  
 .greybackground{
-  background: rgba(255, 255, 255, 0.664) ;
+  background:#FFFFFF ;
   mix-blend-mode: normal;
   transform: rotate(-0.13deg);
-  
 }
 
 body{
-  font-family: "Roboto", sans-serif;;
+  /* font-family: "Roboto", sans-serif;; */
   font-style: normal;
-  font-weight: 600;
-  color:rgb(40, 91, 133);
+  /* font-weight: 600;
+  color:rgb(40, 91, 133); */
   background: #00344A;
 }
 .landing {
