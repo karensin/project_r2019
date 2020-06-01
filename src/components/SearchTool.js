@@ -9,35 +9,17 @@ import { boundChangePetData, boundChangePetAge, boundChangePetEnvoriment } from 
 import DisplayData from './DisplayData.js';
 import { Icon, Input, Button, Form } from 'semantic-ui-react'
 import {
-    Checkbox,
     Grid,
-    Header,
-    Image,
-    Item,
     Rail,
     Ref,
     Segment,
     Sticky,
 } from 'semantic-ui-react';
-import _ from 'lodash';
-import { Dropdown } from 'semantic-ui-react'
 
-// const ageOptions = [
-//     { key: 'baby', text: 'Baby', value: 'baby' },
-//     { key: 'young', text: 'Young', value: 'young' },
-//     { key: 'adult', text: 'Adult', value: 'adult' },
-//     { key: 'Senior', text: 'Senior', value: 'senior' },
-
-
-// ]
 const domain = "https://api.petfinder.com";
 const tokenUrl = '/v2/oauth2/token';
 const url = `/v2/animals`;
-// const Placeholder = () => <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
 
-// function DropdownExampleMultipleSelection() {
-//     return (<Dropdown placeholder='Age' fluid multiple selection options={ageOptions} />)
-// }
 class SearchTool extends Component {
     contextRef = createRef()
     constructor() {
@@ -51,12 +33,12 @@ class SearchTool extends Component {
             sort: '-recent',
             coat: '',
             age: '',
-            good_with_children: false,
-            good_with_dogs: false,
-            good_with_cats: false,
+            good_with_children: '',
+            good_with_dogs: '',
+            good_with_cats: '',
             input: '',
             hasError: false,
-            limit: '40'
+            limit: '20'
         }
     }
 
@@ -88,9 +70,12 @@ class SearchTool extends Component {
             coat: this.state.coat,
             limit: this.state.limit
         }
-
-        var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
-        console.log(queryString, 'queryString', params, 'params')
+        let queryString = ''
+        for (let param in params) {
+            if (params[param] !== '') {
+                queryString += (param + '=' + params[param] + '&')
+            }
+        }
         const bearer = `Bearer ${this.token}`;
         try {
             //teach string interpolation 
@@ -103,13 +88,6 @@ class SearchTool extends Component {
             });
             const jsonRes = await res.json();
 
-            // if (jsonRes.status && jsonRes.status !== 200) {
-            //     console.log('failed')
-            //     this.setState({
-            //         hasError: true
-            //     })
-            //     return false
-            // }
             this.setState({
                 isLoaded: true,
                 items: jsonRes.animals
@@ -141,11 +119,9 @@ class SearchTool extends Component {
         let newVal = this.state.age
         if (this.state.age !== '') {
             newVal = this.state.age + ',' + val
-            console.log(newVal, 'newVal')
         } else {
             newVal = val
         }
-        console.log(newVal, 'newVALstate')
         this.setState({
             age: newVal
         });
@@ -156,11 +132,10 @@ class SearchTool extends Component {
         let newVal = this.state.coat
         if (this.state.age !== '') {
             newVal = this.state.coat + ' ,' + val
-            console.log(newVal, 'newVal')
         } else {
             newVal = val
         }
-        console.log(newVal, 'newVALstate')
+
         this.setState({
             coat: newVal
         });
@@ -170,8 +145,6 @@ class SearchTool extends Component {
 
 
     async handleChangeCats(val) {
-        // let newVal = this.state.environment
-        console.log('valkkk', val)
         if (this.state.good_with_cats === '') {
             this.setState({
                 good_with_cats: true
@@ -268,17 +241,7 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
     }
-    // async onChangeAreaCode(e) {
-    //     console.log(e, 'input_____')
-    //     if (data) {
-    //         this.setState({
-    //             location: data
-    //         })
-    //     }
 
-    //     await this.getToken();
-    //     await this.requestData();
-    // }
     onChangeSearchCity(e) {
         console.log(e.target.value, 'look at me')
         this.setState({
@@ -288,8 +251,6 @@ class SearchTool extends Component {
         if (this.onSubmitSearchCity) {
             e.target.value = ''
         }
-
-        // setInput(e.target.value)
     }
     async onSubmitSearchCity(e, input) {
         console.log(e, 'clicked')
@@ -307,8 +268,6 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
 
-
-        // return false
     }
 
     render() {
