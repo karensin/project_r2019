@@ -43,6 +43,7 @@ class SearchTool extends Component {
     constructor() {
         super()
         this.state = {
+            empty: '',
             active: true,
             petType: 'Dog',
             page: 1,
@@ -114,6 +115,12 @@ class SearchTool extends Component {
                 items: jsonRes.animals
             });
             boundChangePetData(jsonRes.animals)
+            if (!jsonRes.animals.length) {
+                console.log('empty page')
+                this.setState({
+                    empty: 'Sorry! Looks like we ran out of furries in your area, Please check back for new furry updates!'
+                })
+            }
             console.log(jsonRes, 'response')
 
             // boundChangePetAge(jsonRes.animals)
@@ -168,6 +175,7 @@ class SearchTool extends Component {
         if (this.state.good_with_cats === '') {
             this.setState({
                 good_with_cats: true
+
             });
         }
         if (this.state.good_with_cats === true) {
@@ -180,29 +188,42 @@ class SearchTool extends Component {
                 good_with_cats: true
             });
         }
+        if (this.state.good_with_children === true && this.state.good_with_dogs === true && this.state.good_with_cats === true) {
+            this.setState({
+                good_with_children: true,
+                good_with_dogs: true,
+                good_with_cats: true
+            });
+        }
 
         await this.getToken();
         await this.requestData();
     }
     async handleChangeDogs(val) {
-        // let newVal = this.state.environment
-        console.log('valkkk', val)
 
         if (this.state.good_with_dogs === true) {
             this.setState({
                 good_with_dogs: false
             });
         }
-        if (this.state.good_with_cats === false) {
+        if (this.state.good_with_dogs === false) {
             this.setState({
                 good_with_dogs: true
+            });
+        }
+        if (this.state.good_with_children === true && this.state.good_with_dogs === true && this.state.good_with_cats === true) {
+            console.log('did u happen')
+            this.setState({
+                good_with_children: true,
+                good_with_dogs: true,
+                good_with_cats: true
             });
         }
         await this.getToken();
         await this.requestData();
     }
     async handleChangeChildren(val) {
-        console.log('valkkk', val)
+
         if (this.state.good_with_children === true) {
             this.setState({
                 good_with_children: false
@@ -211,6 +232,14 @@ class SearchTool extends Component {
         if (this.state.good_with_children === false) {
             this.setState({
                 good_with_children: true
+            });
+        }
+        if (this.state.good_with_children === true && this.state.good_with_dogs === true && this.state.good_with_cats === true) {
+
+            this.setState({
+                good_with_children: true,
+                good_with_dogs: true,
+                good_with_cats: true
             });
         }
         await this.getToken();
@@ -225,6 +254,7 @@ class SearchTool extends Component {
         console.log(this.state.page, 'page')
         await this.getToken();
         await this.requestData();
+
 
     }
     async onClickPagePrev() {
@@ -303,23 +333,22 @@ class SearchTool extends Component {
                                             <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
                                         </Row>
                                     </Sticky>
-
-                                    <GetData className="displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded} />
+                                    <div>  {this.state.empty} </div>
+                                    <GetData className="displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded}>
+                                    </GetData>
                                 </Container>
-
                                 <Rail >
                                     <Sticky className="stickySearchBar" >
                                         <Segment className="positionSticky">
                                             <div> </div>
                                             <Form onSubmit={this.onSubmitSearchCity.bind(this)}>
                                                 <Form.Field type="submit">
+                                                    Zip code
                                                     <Input
-                                                        placeholder='Zip Code....'
-
+                                                        placeholder='94112....'
                                                         onChange={this.onChangeSearchCity.bind(this)}
                                                         icon={<Icon name='search' inverted circular link onClick={this.onSubmitSearchCity.bind(this)} />}
                                                     />
-
                                                 </Form.Field>
                                             </Form>
                                             <div> Pick your favorite furry </div>
@@ -362,7 +391,6 @@ class SearchTool extends Component {
                                             <div> Coat type</div>
                                             <ButtonToolbar className=" m-1">
                                                 <ToggleButtonGroup className='wrapper' type="checkbox" onChange={this.handleChangePetCoat.bind(this)}>
-
                                                     <ToggleButton variant="secondary" value={'wire'}>wire</ToggleButton>
                                                     <ToggleButton variant="secondary" value={'hairless'}>hairless</ToggleButton>
                                                     <ToggleButton variant="secondary" value={'curly'}>curly</ToggleButton>
