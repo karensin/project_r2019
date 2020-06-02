@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import GetData from './GetData'
 import { Item } from 'semantic-ui-react'
 import { Icon, Label } from 'semantic-ui-react'
-import { Button } from 'semantic-ui-react'
+import { Button, Pagination } from 'semantic-ui-react'
 import { Container, Row, Col } from 'react-bootstrap';
 
 // import { Image, Card, Icon } from 'semantic-ui-react'

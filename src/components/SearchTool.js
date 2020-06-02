@@ -7,7 +7,7 @@ import Expand from './Expand.js';
 import GetData from './GetData.js';
 import { boundChangePetData, boundChangePetAge, boundChangePetEnvoriment } from '../Redux/actions'
 import DisplayData from './DisplayData.js';
-import { Icon, Input, Button, Form } from 'semantic-ui-react'
+import { Icon, Input, Button, Form, Pagination } from 'semantic-ui-react'
 import {
     Grid,
     Rail,
@@ -15,6 +15,7 @@ import {
     Segment,
     Sticky,
 } from 'semantic-ui-react';
+
 
 const domain = "https://api.petfinder.com";
 const tokenUrl = '/v2/oauth2/token';
@@ -38,7 +39,11 @@ class SearchTool extends Component {
             good_with_cats: '',
             input: '',
             hasError: false,
-            limit: '20'
+            limit: '20',
+            totalPageCount: '',
+            currentPage: '',
+            isloading: null,
+            loadingMessage: 'loading...'
         }
     }
 
@@ -61,6 +66,7 @@ class SearchTool extends Component {
         const params = {
             type: this.state.petType,
             page: this.state.page,
+            totalPageCount: this.state.totalPageCount,
             location: this.state.location,
             sort: this.state.sort,
             age: this.state.age,
@@ -99,13 +105,20 @@ class SearchTool extends Component {
                     empty: 'Sorry! Looks like we ran out of furries in your area, Please check back for new furry updates!'
                 })
             }
-            console.log(jsonRes, 'response')
+            if (jsonRes.pagination) {
+                this.setState({
+                    totalPageCount: jsonRes.pagination.total_pages,
+                    currentPage: jsonRes.pagination.current_page,
+                })
+            }
+            console.log(jsonRes, 'response', jsonRes.pagination, this.state.totalPageCount, this.state.currentPage)
 
             // boundChangePetAge(jsonRes.animals)
         } catch (error) {
             console.log(error);
         }
     }
+
 
     async handleChange(val) {
         this.setState({
@@ -116,6 +129,7 @@ class SearchTool extends Component {
     }
 
     async handleChangePetAge(val) {
+
         let newVal = this.state.age
         if (this.state.age !== '') {
             newVal = this.state.age + ',' + val
@@ -123,10 +137,14 @@ class SearchTool extends Component {
             newVal = val
         }
         this.setState({
-            age: newVal
+            age: newVal,
+            isloading: true
         });
         await this.getToken();
         await this.requestData();
+        this.setState({
+            isloading: false
+        })
     }
     async handleChangePetCoat(val) {
         let newVal = this.state.coat
@@ -221,13 +239,16 @@ class SearchTool extends Component {
     async onClickPageNext() {
 
         this.setState({
-            page: this.state.page += 1
-
+            page: this.state.page += 1,
+            isloading: true
         });
         console.log(this.state.page, 'page')
         await this.getToken();
         await this.requestData();
-
+        this.setState({
+            page: this.state.page += 1,
+            isloading: false
+        });
 
     }
     async onClickPagePrev() {
@@ -263,38 +284,59 @@ class SearchTool extends Component {
         this.setState({
             input: ''
         })
-
-
         await this.getToken();
         await this.requestData();
 
     }
 
+    async test(e, data) {
+        console.log('____my data', data)
+        this.setState({
+            isloading: true,
+            page: data.activePage
+        })
+        await this.getToken();
+        await this.requestData();
+        this.setState({
+            isloading: false,
+        })
+    }
+    isLoading() {
+        if (this.state.isloading) {
+            return this.state.loadingMessage
+        }
+    }
     render() {
         // const { active } = this.state
 
         // if (this.state.hasError === true) {
         //     return <div> fak </div>
         // }
+        if (this.state.isLoading === true) {
+            return <div> loading....</div>
+        }
 
 
         return (
-            <Container h-100>
+            <Container className="dataBox">
+
                 <Grid >
                     <Grid.Column columns={2}>
                         <Ref innerRef={this.contextRef}>
-                            <Container >
+                            <Container className="databox">
                                 {/* <Segment position='right'> 'data goes here' */}
                                 <Container className="displayData mt-auto p-2">
                                     <Sticky className="stickyDirectionBar" >
                                         <Row className=" justify-content-around">
-                                            <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
-                                            <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button>
+                                            <Pagination onPageChange={((e, data) => this.test(e, data))} defaultActivePage={this.state.page} totalPages={this.state.totalPageCount} />
+                                            {/* <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
+                                            <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button> */}
                                         </Row>
                                     </Sticky>
                                     <div>  {this.state.empty} </div>
-                                    <GetData className="displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded}>
+                                    <GetData className="dataBox displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded}>
                                     </GetData>
+                                    {/* <h1> {this.state.loadingMessage}</h1> */}
                                 </Container>
                                 <Rail >
                                     <Sticky className="stickySearchBar" >

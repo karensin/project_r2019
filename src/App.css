@@ -157,7 +157,11 @@ button, input {
   font-weight: 100;
  }
 a.ui.button.detailsbtn{
- background: #AB987E;
+    width: 120px;
+    height: 220px;
+    min-width: 120px;
+    max-width: 120px;
+  background: #AB987E;
 }
 .ui.items>.item>.content>.description{
   font-size: 12px;

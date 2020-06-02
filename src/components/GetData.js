@@ -3,6 +3,7 @@ import { store } from '../index'
 import { Image } from 'semantic-ui-react'
 import DisplayData from './DisplayData'
 import Header from './Header'
+import { Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 
 class GetData extends React.Component {
@@ -13,7 +14,6 @@ class GetData extends React.Component {
             error: null,
             isLoaded: false,
             items: []
-
         };
         store.subscribe(() => this.updateData())
     }
@@ -34,10 +34,10 @@ class GetData extends React.Component {
 
         isLoaded = true;
         if (!isLoaded) {
-            return <div>Loading...</div>;
+            return (<h1>Loading...</h1>)
         } else {
             return (
-                <div >
+                <div className="dataBox">
                     <DisplayData items={items} />
                 </div>
             );
