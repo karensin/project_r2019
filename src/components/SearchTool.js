@@ -326,12 +326,10 @@ class SearchTool extends Component {
                             <Container className="databox">
                                 {/* <Segment position='right'> 'data goes here' */}
                                 <Container className="displayData mt-auto p-2">
-                                    <Sticky className="stickyDirectionBar" >
-                                        <Row className=" justify-content-around">
-                                            <Pagination onPageChange={((e, data) => this.test(e, data))} defaultActivePage={this.state.page} totalPages={this.state.totalPageCount} />
-                                            {/* <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
+                                    <Sticky className="stickyDirectionBar d-flex justfiy-content-center" >
+                                        <Pagination onPageChange={((e, data) => this.test(e, data))} defaultActivePage={this.state.page} totalPages={this.state.totalPageCount} />
+                                        {/* <Button className="directionbtn d-flex justify-content-start" variant="warning" offset='200' onClick={this.onClickPagePrev.bind(this)}> <Icon name='left arrow' /> Prev  </Button>
                                             <Button className="directionbtn d-flex justify-content-end" variant="warning" onClick={this.onClickPageNext.bind(this)}> Next<Icon name='right arrow' /></Button> */}
-                                        </Row>
                                     </Sticky>
                                     <div>  {this.state.empty} </div>
                                     <GetData className="dataBox displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded}>

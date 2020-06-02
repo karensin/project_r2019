@@ -22,8 +22,14 @@ body{
   min-width: 100%;
 
 }
+.stickyDirectionBar.d-flex.justfiy-content-center{
+  /* justify-content: center; */
+  padding: 10px;
+}
+ a.item {
+    width: 70px;
 
- 
+}
  .Aligner{
   background: #63675D
  } 
