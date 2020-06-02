@@ -23,8 +23,9 @@ body{
 
 }
 .stickyDirectionBar.d-flex.justfiy-content-center{
-  /* justify-content: center; */
+ 
   padding: 10px;
+  justify-content: center;
 }
  a.item {
     width: 70px;
