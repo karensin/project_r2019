@@ -44,6 +44,7 @@ class SearchTool extends Component {
             currentPage: '',
             isloading: null,
             loadingMessage: 'loading...'
+
         }
     }
 
@@ -98,6 +99,7 @@ class SearchTool extends Component {
                 isLoaded: true,
                 items: jsonRes.animals
             });
+
             boundChangePetData(jsonRes.animals)
             if (!jsonRes.animals.length) {
                 console.log('empty page')
@@ -118,7 +120,11 @@ class SearchTool extends Component {
             console.log(error);
         }
     }
-
+    async componentDidMount() {
+        console.log('did u happen')
+        await this.getToken()
+        await this.requestData();
+    }
 
     async handleChange(val) {
         this.setState({
@@ -306,6 +312,12 @@ class SearchTool extends Component {
             return this.state.loadingMessage
         }
     }
+    // pagination() {
+    //     if (this.state.isLoaded) {
+    //         console.log('hiii')
+    //         return (<div>loaded </div>)
+    //     }
+    // }
     render() {
         // const { active } = this.state
 
@@ -409,26 +421,6 @@ class SearchTool extends Component {
                         </Ref>
                     </Grid.Column>
                 </Grid>
-
-                {/* <Col className="SearchToolBox col-2 float-left"> */}
-
-
-                {/* <Button variant="outline-light">Search</Button> */}
-
-                {/* <ButtonToolbar> */}
-
-
-                {/* </ButtonToolbar> */}
-
-                {/* <Expand /> */}
-                {/* <Button >
-                                    Search
-                    </Button> */}
-
-                {/* </Col> */}
-
-                {/* </Row> */}
-
             </Container >
         )
     }

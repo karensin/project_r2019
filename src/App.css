@@ -22,11 +22,7 @@ body{
   min-width: 100%;
 
 }
-.stickyDirectionBar.d-flex.justfiy-content-center{
- 
-  padding: 10px;
-  justify-content: center;
-}
+
  a.item {
     width: 70px;
 
@@ -227,3 +223,8 @@ button.ui.button.submitbutton {
     padding: 10px;
     height: 50px;
 }
+.stickyDirectionBar.d-flex.justfiy-content-center{
+  padding: 10px;
+ 
+}
+ 
