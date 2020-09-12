@@ -15,16 +15,10 @@ import { Dropdown } from 'semantic-ui-react'
 // }
 class Footer extends Component {
 
-
-
-
-
     render() {
         return (
             <footer className="footer">
-
-                {/* {DropdownExampleMultipleSelection()} */}
-
+                Copyright © 2020 All Rights Reserved by Karen Sin
             </footer>
         )
     }

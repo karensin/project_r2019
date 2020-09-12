@@ -1,11 +1,12 @@
 html{
   overflow-y : scroll;
   width:100%; 
-  height: 100vh; 
+  height: 100%; 
+  background:  rgba(163, 159, 145, 0.548);
 }
  
 .greybackground{
-  background:#FFFFFF ;
+  background:#817d7d ;
   mix-blend-mode: normal;
   transform: rotate(-0.13deg);
 }
@@ -22,7 +23,6 @@ body{
   min-width: 100%;
 
 }
-
  a.item {
     width: 70px;
 
@@ -201,9 +201,7 @@ a.ui.button.detailsbtn {
  
  
  }
-main.header.h-100.landing.Aligner{
-
-}
+ 
 @media screen and (max-width: 1200px) {
   .stickySearchBar{
   visibility: hidden
@@ -226,6 +224,10 @@ button.ui.button.submitbutton {
 .stickyDirectionBar.d-flex.justfiy-content-center{
   padding: 10px;
   min-width: 1000px;
+ 
+}
+.footer{
+  position: relative;
  
 }
  

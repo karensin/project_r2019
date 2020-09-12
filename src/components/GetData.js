@@ -23,7 +23,6 @@ class GetData extends React.Component {
         this.setState({
             items: petState.petData
         })
-
     }
 
     render() {

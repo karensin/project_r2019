@@ -13,7 +13,6 @@ export const changePetType = petType => ({
 
 })
 
-
 export const boundChangePetType = type => store.dispatch(changePetType(type))
 
 //PetData
@@ -32,7 +31,6 @@ export const changePetAge = petAge => ({
     petAge,
 })
 
-
 export const boundChangePetAge = petAge =>
     store.dispatch(changePetAge(petAge))
 
@@ -47,22 +45,6 @@ export const boundChangePetEnvoriment = petEnvoriment =>
     store.dispatch(changePetAge(petEnvoriment))
 
 
-
-
-
-export const increaseCounter = () => ({
-    type: 'VISTOR_COUNT',
-})
-
-
-// export const boundCounter = () =>
-//     store.dispatch(increaseCounter())
-
-
-
-// export function boundChangePetType(type) {
-//     return { type: 'PET_TYPE' }
-// }
 
 
 

@@ -5,14 +5,21 @@ import { Icon, Label } from 'semantic-ui-react'
 import { Button, Pagination } from 'semantic-ui-react'
 import { Container, Row, Col } from 'react-bootstrap';
 
-// import { Image, Card, Icon } from 'semantic-ui-react'
-
-// import { Container, Row, Col } from 'react-bootstrap';
 
 // use react library 'card' to display each pet's breed, age, photo, 
 function DisplayData(props) {
+
     const { items } = props
     const [photo, setPhoto] = useState([])
+
+    useEffect(() => {
+        function mapItems() {
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i]
+            }
+        }
+        mapItems()
+    }, [items])
 
     function DisplayPhoto(item) {
         let dogPhoto = process.env.PUBLIC_URL + "/imgs/goofyDog.jpeg"
@@ -30,9 +37,9 @@ function DisplayData(props) {
             } else {
                 return randoPhoto
             }
-
         }
     }
+
     function DisplayName(itemName) {
         if (itemName) {
             if (itemName.includes('*')) {
@@ -52,6 +59,7 @@ function DisplayData(props) {
             return itemName = 'This fur baby does not have a name yet'
         }
     }
+
     function makeid(length) {
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -61,6 +69,7 @@ function DisplayData(props) {
         }
         return result;
     }
+
     //cats children 
     function tag(item) {
         let tags = []
@@ -82,35 +91,31 @@ function DisplayData(props) {
         return tags
 
     }
-    // function description(description) {
-    //     let str = '!@#$%^&*()?><./;{}|'
-    //     if (description.includes(...str)) {
 
-    //     }
-    // }
 
     function getTimeDiff(dataTime) {
         // let validMonth=false
         //format= NOW year - Past Year    AND Now Month-Past Month +1 
         let getToday = new Date()
         let year = getToday.getFullYear() //return present year
-        // console.log(year, 'year')
         let month = getToday.getUTCMonth(); //return present month 
-        // console.log(month + 1, 'month')
-
         let past = new Date(dataTime)
         let pastYear = past.getFullYear()
         let pastMonth = past.getUTCMonth()
-        if (month < pastMonth) {
 
-        }
         let yearDiff = year - pastYear
         let monthDiff = month - pastMonth + 1
         if (monthDiff < 0) {
             monthDiff *= -1
         }
-
-        let result = yearDiff + ' Year and ' + monthDiff + ' Months'
+        if (yearDiff === 0) {
+            yearDiff = ''
+        } else if (yearDiff === 1) {
+            yearDiff = '1 Year'
+        } else {
+            yearDiff = `${yearDiff} Years `
+        }
+        let result = `${yearDiff} ${monthDiff} Months`
         return result
 
     }
@@ -119,37 +124,18 @@ function DisplayData(props) {
         let d = new Date(dataTime)
         return d.getFullYear()
     }
-    useEffect(() => {
-
-        function mapItems() {
-            for (let i = 0; i < items.length; i++) {
-                let item = items[i]
-                console.log(item, '_______', item['photos'], item['photos'][0], 'lookie')
 
 
-            }
-        }
-        // console.log(DisplayName('**karen'))
-        mapItems()
-    }, [items])
-    // {
-    //     items.map(item => (
-    //         <li key={makeid(5)}>
-    //             {DisplayName(item.name)}: {item.type} | {item.breeds.primary}|
-    //             <Image src={DisplayPhoto(item)} size='small' circular />
-    //         </li>
-    //     ))
-    // }
     function getColor(item) {
         if (item['colors'] !== null) {
             if (item['colors'][['primary']]) {
                 return item['colors']['primary']
             }
-
         } else {
             return null
         }
     }
+
     return (
         <Container>
             <Item.Group>
@@ -165,7 +151,6 @@ function DisplayData(props) {
                                 <Label>  <strong> Age:</strong> {item.age} </Label>
                                 <Label><strong> Gender: </strong>  {item.gender}</Label>
                                 <Label><strong>  Size: </strong>   {item.size}</Label>
-
                                 <br /> <div> {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary},our fury friend was admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
                                 </div>
                             </Item.Description>
@@ -175,13 +160,6 @@ function DisplayData(props) {
                     </Item>
                 ))}
             </Item.Group>
-            {/* {items.map(item => (
-                <li key={makeid(5)}>
-                    {DisplayName(item.name)}: {item.type} | {item.breeds.primary}|
-                    <Image src={DisplayPhoto(item)} size='small' circular />
-                </li>
-            ))} */}
-            {/* {console.log(items, 'props')} */}
         </Container>
     )
 

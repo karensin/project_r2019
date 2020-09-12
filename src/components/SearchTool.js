@@ -44,7 +44,6 @@ class SearchTool extends Component {
             currentPage: '',
             isloading: null,
             loadingMessage: 'loading...'
-
         }
     }
 
@@ -152,6 +151,7 @@ class SearchTool extends Component {
             isloading: false
         })
     }
+
     async handleChangePetCoat(val) {
         let newVal = this.state.coat
         if (this.state.age !== '') {
@@ -166,7 +166,6 @@ class SearchTool extends Component {
         await this.getToken();
         await this.requestData();
     }
-
 
     async handleChangeCats(val) {
         if (this.state.good_with_cats === '') {
@@ -312,18 +311,9 @@ class SearchTool extends Component {
             return this.state.loadingMessage
         }
     }
-    // pagination() {
-    //     if (this.state.isLoaded) {
-    //         console.log('hiii')
-    //         return (<div>loaded </div>)
-    //     }
-    // }
-    render() {
-        // const { active } = this.state
 
-        // if (this.state.hasError === true) {
-        //     return <div> fak </div>
-        // }
+    render() {
+
         if (this.state.isLoading === true) {
             return <div> loading....</div>
         }
@@ -336,7 +326,6 @@ class SearchTool extends Component {
                     <Grid.Column columns={2}>
                         <Ref innerRef={this.contextRef}>
                             <Container className="databox">
-                                {/* <Segment position='right'> 'data goes here' */}
                                 <Container className="displayData mt-auto p-2">
                                     <Sticky className="stickyDirectionBar d-flex justfiy-content-center" >
                                         <Pagination onPageChange={((e, data) => this.test(e, data))} defaultActivePage={this.state.page} totalPages={this.state.totalPageCount} />
@@ -346,7 +335,6 @@ class SearchTool extends Component {
                                     <div>  {this.state.empty} </div>
                                     <GetData className="dataBox displayData mt-auto p-2" items={this.state.items} isLoaded={this.state.isLoaded}>
                                     </GetData>
-                                    {/* <h1> {this.state.loadingMessage}</h1> */}
                                 </Container>
                                 <Rail >
                                     <Sticky className="stickySearchBar" >
@@ -407,13 +395,6 @@ class SearchTool extends Component {
                                                     <ToggleButton variant="secondary" value={'curly'}>curly</ToggleButton>
                                                 </ToggleButtonGroup>
                                             </ButtonToolbar>
-                                            {/* </Container> */}
-                                            {/* <Checkbox
-                                                    checked={active}
-                                                    label='Activate Sticky on right'
-                                                    onChange={this.handleToggle}
-                                                    toggle
-                                                /> */}
                                         </Segment>
                                     </Sticky>
                                 </Rail>
