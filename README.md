@@ -1,9 +1,6 @@
-Project Crateless 
+Project Crateless – Mission Statement
 
-Mission 
+Project Crateless aims to spotlight shelter animals based on the length of time they’ve been waiting for a home.
+While most shelters highlight newly admitted pets, we focus on those who have been in the system the longest — the ones most often overlooked. Our mission is to help these animals find loving, permanent homes faster.
 
-Project Crateless is created to shine a light on animals based on the time they have spent in the shelter.
-While most shelter display the most recent pets admitted to the shelter, our goal is to focus on featuring the animals that have been admitted to the shelter the longest. Our mission is to focus on getting shelter animals a forever home sooner. 
-
- 
-We are utilizing PetFinder RESTful API  https://www.petfinder.com/developers/v2/docs/ to extract data 
+We utilize the PetFinder RESTful API to access real-time data on adoptable pets and surface those with the greatest need.
