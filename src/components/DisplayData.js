@@ -6,7 +6,6 @@ import { Button, Pagination, Card, CardMeta, Image, CardContent, CardDescription
 import { Container, Row, Col } from 'react-bootstrap';
 
 
-// use react library 'card' to display each pet's breed, age, photo, 
 function DisplayData(props) {
 
     const { items } = props
@@ -142,7 +141,7 @@ function DisplayData(props) {
     }
 
     return (
-        <Row style={{ marginTop: '125px', display: 'flex', justifyContent: 'space-around', alignItems: 'baseline' }}>
+        <Row style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'baseline' }}>
 
             {items.map((item) => (
                 <Card
@@ -156,8 +155,8 @@ function DisplayData(props) {
                         <CardMeta>  In shelter for  {getTimeDiff(item.published_at)}
                         </CardMeta>
                         <CardDescription>
-                            <Label> {item.gender}</Label>
-                            <Label>   {item.size}</Label>
+                            <Label>  {item.gender} <Icon name={item.gender === 'male' ? 'man' : 'woman'} /> </Label>
+                            <Label>  {item.size}</Label>
                             <Label>  {item.age} </Label>
 
                         </CardDescription>

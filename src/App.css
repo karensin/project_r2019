@@ -12,17 +12,13 @@ html {
 }
 
 body {
-  /* font-family: "Roboto", sans-serif;; */
   font-style: normal;
-  /* font-weight: 600;
-  color:rgb(40, 91, 133); */
   background: #00344A;
 }
 
 .landing {
-  height: 100vh;
-  min-width: 100%;
-
+  height: 75vh;
+  min-width: 100%
 }
 
 a.item {
@@ -37,11 +33,12 @@ a.item {
 .Aligner-item {
   position: relative;
   top: 20%;
-  left: 25%;
-  width: 70vh;
-  font-size: 22pt;
-  font-family: 'Abhaya Libre SemiBold';
-  line-height: 156.62%;
+  left: 22%;
+  font-size: 2.5rem;
+  font-weight: 600;
+  font-family: 'Atma';
+  color: #edd778fa;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .right {
@@ -243,4 +240,24 @@ button.ui.button.submitbutton {
 .footer {
   position: relative;
 
+}
+
+.search-container {
+  background: #f9f9f9;
+  border: 1px solid #dddddd38;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 16px;
+  margin-top: -12rem;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.search-container:focus {
+  outline: none;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.7),
+    0 4px 8px rgba(0, 0, 0, 0.2);
 }

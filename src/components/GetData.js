@@ -1,46 +1,34 @@
-import React from 'react'
 import { store } from '../index'
 import { Image } from 'semantic-ui-react'
 import DisplayData from './DisplayData'
 import Header from './Header'
 import { Dimmer, Loader, Segment } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react';
 
 
-class GetData extends React.Component {
-    constructor(props) {
-        super(props);
-        this.token = '';
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: []
-        };
-        store.subscribe(() => this.updateData())
-    }
+function GetData(props) {
+    const [items, setItems] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(true);
 
-    updateData() {
-        const petState = store.getState()
-        this.setState({
-            items: petState.petData
-        })
-    }
+    useEffect(() => {
+        const unsubscribe = store.subscribe(() => {
+            const petState = store.getState();
+            setItems(petState.petData || []);
+        });
+        // Initialize items on mount
+        const petState = store.getState();
+        setItems(petState.petData || []);
+        return () => unsubscribe();
+    }, []);
 
-    render() {
-        let { isLoaded } = this.props;
-        let { items } = this.state;
-
-        items = items || [];
-
-        isLoaded = true;
-        if (!isLoaded) {
-            return (<h1>Loading...</h1>)
-        } else {
-            return (
-                <div className="dataBox">
-                    <DisplayData items={items} />
-                </div>
-            );
-        }
+    if (!isLoaded) {
+        return (<h1>Loading...</h1>);
+    } else {
+        return (
+            <div className="dataBox">
+                <DisplayData items={items} />
+            </div>
+        );
     }
 }
 export default GetData; 

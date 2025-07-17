@@ -124,14 +124,10 @@ const SearchTool = () => {
             <Grid>
                 <Grid.Column columns={2}>
                     <Ref innerRef={contextRef}>
-                        <Container >
-
-                            <div>{state.empty}</div>
-                            <GetData items={state.items} isLoaded={state.isLoaded} />
-                            <Pagination onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />
+                        <Container style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
                             <Sticky>
 
-                                <Container fluid className="bg-white py-3 px-4 border-bottom">
+                                <Container fluid className="bg-white py-3 px-4 search-container">
                                     <h3 style={{ fontWeight: '600', marginBottom: '1rem' }}>
                                         Search for Pets in Your Area
                                     </h3>
@@ -190,6 +186,10 @@ const SearchTool = () => {
                                     </Row>
                                 </Container>
                             </Sticky>
+                            <div>{state.empty}</div>
+                            <GetData items={state.items} isLoaded={state.isLoaded} />
+                            <Pagination onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />
+
 
                         </Container>
                     </Ref>
