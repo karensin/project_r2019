@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Container, ButtonToolbar, ToggleButton, ToggleButtonGroup, Button } from 'react-bootstrap';
+import { Container, ButtonToolbar, ToggleButton, ToggleButtonGroup, Button, Row, Col } from 'react-bootstrap';
 import { Form, Input, Icon, Pagination, } from 'semantic-ui-react';
 import { Grid, Rail, Ref, Segment, Sticky } from 'semantic-ui-react';
 import GetData from './GetData';
@@ -17,9 +17,9 @@ const SearchTool = () => {
         sort: '-recent',
         age: '',
         coat: '',
-        good_with_cats: '',
-        good_with_dogs: '',
-        good_with_children: '',
+        good_with_cats: false,
+        good_with_dogs: false,
+        good_with_children: false,
         input: '',
         items: [],
         isLoaded: false,
@@ -101,9 +101,14 @@ const SearchTool = () => {
     const onEnvToggle = async (field) => {
         setState(prev => {
             const currentVal = prev[field];
+            console.log({
+                ...prev,
+                [field]: !currentVal,
+                page: 1
+            })
             return {
                 ...prev,
-                [field]: currentVal ? '' : true,
+                [field]: !currentVal,
                 page: 1
             };
         });
@@ -115,65 +120,76 @@ const SearchTool = () => {
     };
 
     return (
-        <Container>
+        <Container style={{ maxWidth: '100%' }} >
             <Grid>
                 <Grid.Column columns={2}>
                     <Ref innerRef={contextRef}>
-                        <Container>
-                            <Sticky>
-                                <Pagination onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />
-                            </Sticky>
+                        <Container >
+
                             <div>{state.empty}</div>
                             <GetData items={state.items} isLoaded={state.isLoaded} />
-                            <Rail>
+                            <Pagination onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />
+                            <Rail style={{ width: '100%' }}>
                                 <Sticky>
-                                    <Segment>
-                                        <Form onSubmit={onSubmitCity}>
-                                            <Form.Field>
-                                                <Input
-                                                    placeholder="ZIP..."
-                                                    value={state.input}
-                                                    onChange={onChangeCity}
-                                                    icon={<Icon name='search' link onClick={onSubmitCity} />}
-                                                />
-                                            </Form.Field>
-                                        </Form>
 
-                                        <div className="mt-2">Species</div>
-                                        <ButtonToolbar>
-                                            <ToggleButtonGroup type="radio" name="species" onChange={onSpeciesChange}>
-                                                <ToggleButton value="Dog">Dog</ToggleButton>
-                                                <ToggleButton value="Cat">Cat</ToggleButton>
-                                                <ToggleButton value="Rabbit">Rabbit</ToggleButton>
-                                            </ToggleButtonGroup>
-                                        </ButtonToolbar>
+                                    <Container fluid className="bg-white py-3 px-4 border-bottom">
+                                        <h3 style={{ fontWeight: '600', marginBottom: '1rem' }}>
+                                            Search for Pets in Your Area
+                                        </h3>
 
-                                        <div className="mt-3">Age</div>
-                                        <ButtonToolbar>
-                                            <ToggleButtonGroup type="radio" name="age" onChange={onAgeChange}>
-                                                <ToggleButton value="baby">Baby</ToggleButton>
-                                                <ToggleButton value="young">Young</ToggleButton>
-                                                <ToggleButton value="adult">Adult</ToggleButton>
-                                                <ToggleButton value="senior">Senior</ToggleButton>
-                                            </ToggleButtonGroup>
-                                        </ButtonToolbar>
 
-                                        <div className="mt-3">Coat Length</div>
-                                        <ButtonToolbar>
-                                            <ToggleButtonGroup type="radio" name="coat" onChange={onCoatChange}>
-                                                <ToggleButton value="short">Short</ToggleButton>
-                                                <ToggleButton value="medium">Medium</ToggleButton>
-                                                <ToggleButton value="long">Long</ToggleButton>
-                                            </ToggleButtonGroup>
-                                        </ButtonToolbar>
+                                        <Row className="gy-3 gx-4 flex-nowrap overflow-auto">
+                                            <Col xs="auto">
+                                                <div className="fw-bold">Area code</div>
 
-                                        <div className="mt-3">Good With</div>
-                                        <ButtonToolbar>
-                                            <Button onClick={() => onEnvToggle('good_with_cats')}>Cats</Button>
-                                            <Button onClick={() => onEnvToggle('good_with_dogs')}>Dogs</Button>
-                                            <Button onClick={() => onEnvToggle('good_with_children')}>Children</Button>
-                                        </ButtonToolbar>
-                                    </Segment>
+                                                <Form onSubmit={onSubmitCity} className="mb-3">
+                                                    <Input
+
+                                                        placeholder="Enter ZIP code..."
+                                                        value={state.input}
+                                                        onChange={onChangeCity}
+                                                        icon={<Icon name="search" link onClick={onSubmitCity} />}
+                                                    />
+                                                </Form>
+                                            </Col>
+                                            <Col xs="auto">
+                                                <div className="fw-bold">Species</div>
+                                                <ToggleButtonGroup type="radio" name="species" onChange={onSpeciesChange}>
+                                                    <ToggleButton value="Dog">Dog</ToggleButton>
+                                                    <ToggleButton value="Cat">Cat</ToggleButton>
+                                                    <ToggleButton value="Rabbit">Rabbit</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </Col>
+
+                                            <Col xs="auto">
+                                                <div className="fw-bold">Age</div>
+                                                <ToggleButtonGroup type="radio" name="age" onChange={onAgeChange}>
+                                                    <ToggleButton value="baby">Baby</ToggleButton>
+                                                    <ToggleButton value="young">Young</ToggleButton>
+                                                    <ToggleButton value="adult">Adult</ToggleButton>
+                                                    <ToggleButton value="senior">Senior</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </Col>
+
+                                            <Col xs="auto">
+                                                <div className="fw-bold">Coat</div>
+                                                <ToggleButtonGroup type="radio" name="coat" onChange={onCoatChange}>
+                                                    <ToggleButton value="short">Short</ToggleButton>
+                                                    <ToggleButton value="medium">Medium</ToggleButton>
+                                                    <ToggleButton value="long">Long</ToggleButton>
+                                                </ToggleButtonGroup>
+                                            </Col>
+
+                                            <Col xs="auto">
+                                                <div className="fw-bold">Good With</div>
+                                                <ButtonToolbar className="d-flex gap-2">
+                                                    <Button variant={state.good_with_cats ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_cats')}>Cats</Button>
+                                                    <Button variant={state.good_with_dogs ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_dogs')}>Dogs</Button>
+                                                    <Button variant={state.good_with_children ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_children')}>Children</Button>
+                                                </ButtonToolbar>
+                                            </Col>
+                                        </Row>
+                                    </Container>
                                 </Sticky>
                             </Rail>
                         </Container>

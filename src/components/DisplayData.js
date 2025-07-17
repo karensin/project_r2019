@@ -137,7 +137,7 @@ function DisplayData(props) {
     }
 
     return (
-        <Container>
+        <Container style={{ marginTop: '125px' }}>
             <Item.Group>
                 {items.map((item) => (
                     <Item className="columnBox">
@@ -160,6 +160,7 @@ function DisplayData(props) {
                     </Item>
                 ))}
             </Item.Group>
+
         </Container>
     )
 
