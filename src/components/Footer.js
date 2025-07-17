@@ -8,7 +8,7 @@ class Footer extends Component {
     render() {
         return (
             <footer className="footer">
-                Copyright © 2020 All Rights Reserved by Karen Sin
+                Copyright © 2025 All Rights Reserved by Karen Sin
             </footer>
         )
     }

@@ -94,8 +94,7 @@ function DisplayData(props) {
 
 
     function getTimeDiff(dataTime) {
-        // let validMonth=false
-        //format= NOW year - Past Year    AND Now Month-Past Month +1 
+
         let getToday = new Date()
         let year = getToday.getFullYear() //return present year
         let month = getToday.getUTCMonth(); //return present month 
@@ -115,83 +114,58 @@ function DisplayData(props) {
         } else {
             yearDiff = `${yearDiff} Years `
         }
-        let result = `${yearDiff} ${monthDiff} Months`
+        let result = `${yearDiff} ${monthDiff > 0 ? `${monthDiff} Months` : ''} `
         return result
 
     }
 
-    function getYear(dataTime) {
-        let d = new Date(dataTime)
-        return d.getFullYear()
-    }
-
-
-    function getColor(item) {
-        if (item['colors'] !== null) {
-            if (item['colors'][['primary']]) {
-                return item['colors']['primary']
-            }
-        } else {
-            return null
-        }
-    }
-    const extra = (item) => {
-        return (
-            <Button size="small" className="detailsbtn" href={item['url']}> Click for more details </Button>)
-    }
 
     return (
         <Row style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'baseline' }}>
-
             {items.map((item) => (
                 <Card
                     key={makeid(5)}
                     className="pet-card"
-                    style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}
+
                 >
                     <Image src={getImageByItem(item)} style={{ height: '250px', objectFit: 'contain' }} className="p-2" />
                     <CardContent>
                         <CardHeader>{item.name}</CardHeader>
-                        <CardMeta>  In shelter for  {getTimeDiff(item.published_at)}
+                        <CardMeta>  Time in Shelter : {getTimeDiff(item.published_at)}
                         </CardMeta>
                         <CardDescription>
-                            <Label>  {item.gender} <Icon name={item.gender === 'male' ? 'man' : 'woman'} /> </Label>
-                            <Label>  {item.size}</Label>
-                            <Label>  {item.age} </Label>
+                            <Label className='mb-2'> <Icon name={item.gender === 'Male' ? 'man' : 'woman'} /> {item.gender}  </Label>
+                            <Label className='mb-2'>  {item.age} </Label>
+                            <Label className='mb-2'>  {item.breeds.primary} {item.breeds.secondary}</Label>
 
                         </CardDescription>
                     </CardContent>
                     <CardContent extra className='d-flex justify-content-between'>
-                        <Button size="small" className="detailsbtn d-flex" href={item['contact']['email'] ? `mailto:${item['contact']['email']}` : item['url']}>
+                        <Button
+                            size="small"
+                            className="detailsbtn d-flex"
+                            href={item['contact']['email'] ? `mailto:${item['contact']['email']}` : item['url']}
+
+
+                        >
                             <Icon name='mail' /> <span> Contact</span>
                         </Button>
-                        <Button size="small" className="detailsbtn d-flex" href={item['url']}>
+                        <Button
+                            size="small"
+                            className="detailsbtn d-flex"
+                            href={item['url']}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <Icon name='paw' /> Learn More
                         </Button>
                     </CardContent>
                 </Card>
-            ))}
-        </Row>
+            ))
+            }
+        </Row >
     )
 
 }
 export default DisplayData;
 
-{/* <Item className="columnBox">
-    <Item.Image className="crop" size='medium' src={DisplayPhoto(item)} wrapped ui={false} />
-    <Item.Content>
-        <Item.Header>{DisplayName(item.name)} </Item.Header>
-        <Item.Meta>
-            <Icon name='mail' />  {item['contact']['email']}
-            <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
-        <Item.Description>
-            <Label>  <strong> Age:</strong> {item.age} </Label>
-            <Label><strong> Gender: </strong>  {item.gender}</Label>
-            <Label><strong>  Size: </strong>   {item.size}</Label>
-            <br /> <div> {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary},our fury friend was admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
-            </div>
-        </Item.Description>
-        <Item.Extra>  {tag(item)}</Item.Extra>
-    </Item.Content>
-<Button className="detailsbtn" href={item['url']}> Click for more details </Button></>
-</Item > */}
