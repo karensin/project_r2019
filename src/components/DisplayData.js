@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import GetData from './GetData'
 import { Item } from 'semantic-ui-react'
 import { Icon, Label } from 'semantic-ui-react'
-import { Button, Pagination } from 'semantic-ui-react'
+import { Button, Pagination, Card, CardMeta, Image, CardContent, CardDescription, CardGroup, CardHeader } from 'semantic-ui-react'
 import { Container, Row, Col } from 'react-bootstrap';
 
 
@@ -21,7 +21,7 @@ function DisplayData(props) {
         mapItems()
     }, [items])
 
-    function DisplayPhoto(item) {
+    function getImageByItem(item) {
         let dogPhoto = process.env.PUBLIC_URL + "/imgs/goofyDog.jpeg"
         let catPhoto = process.env.PUBLIC_URL + "/imgs/cat2.jpeg"
         let randoPhoto = process.env.PUBLIC_URL + "/imgs/smilingDog.jpeg"
@@ -32,24 +32,25 @@ function DisplayData(props) {
         } else {
             if (item['species'] === 'Cat') {
                 return catPhoto
-            } else if (item['species'] === 'Dog') {
-                return dogPhoto
-            } else {
-                return randoPhoto
             }
+            if (item['species'] === 'Dog') {
+                return dogPhoto
+            }
+            return randoPhoto
+
         }
     }
 
-    function DisplayName(itemName) {
+    function displayName(itemName) {
         if (itemName) {
             if (itemName.includes('*')) {
                 let nameArr = [...itemName]
                 let newName = nameArr.filter((letter) => {
                     if (letter === '*') {
                         return false
-                    } else {
-                        return true
                     }
+                    return true
+
                 })
                 return newName.join('')
             } else {
@@ -135,34 +136,63 @@ function DisplayData(props) {
             return null
         }
     }
+    const extra = (item) => {
+        return (
+            <Button size="small" className="detailsbtn" href={item['url']}> Click for more details </Button>)
+    }
 
     return (
-        <Container style={{ marginTop: '125px' }}>
-            <Item.Group>
-                {items.map((item) => (
-                    <Item className="columnBox">
-                        <Item.Image className="crop" size='medium' src={DisplayPhoto(item)} wrapped ui={false} />
-                        <Item.Content>
-                            <Item.Header>{DisplayName(item.name)} </Item.Header>
-                            <Item.Meta>
-                                <Icon name='mail' />  {item['contact']['email']}
-                                <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
-                            <Item.Description>
-                                <Label>  <strong> Age:</strong> {item.age} </Label>
-                                <Label><strong> Gender: </strong>  {item.gender}</Label>
-                                <Label><strong>  Size: </strong>   {item.size}</Label>
-                                <br /> <div> {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary},our fury friend was admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
-                                </div>
-                            </Item.Description>
-                            <Item.Extra>  {tag(item)}</Item.Extra>
-                        </Item.Content>
-                        <Button className="detailsbtn" href={item['url']}> Click for more details </Button>
-                    </Item>
-                ))}
-            </Item.Group>
+        <Row style={{ marginTop: '125px', display: 'flex', justifyContent: 'space-around', alignItems: 'baseline' }}>
 
-        </Container>
+            {items.map((item) => (
+                <Card
+                    key={makeid(5)}
+                    className="pet-card"
+                    style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}
+                >
+                    <Image src={getImageByItem(item)} style={{ height: '250px', objectFit: 'contain' }} className="p-2" />
+                    <CardContent>
+                        <CardHeader>{item.name}</CardHeader>
+                        <CardMeta>  In shelter for  {getTimeDiff(item.published_at)}
+                        </CardMeta>
+                        <CardDescription>
+                            <Label> {item.gender}</Label>
+                            <Label>   {item.size}</Label>
+                            <Label>  {item.age} </Label>
+
+                        </CardDescription>
+                    </CardContent>
+                    <CardContent extra className='d-flex justify-content-between'>
+                        <Button size="small" className="detailsbtn d-flex" href={item['contact']['email'] ? `mailto:${item['contact']['email']}` : item['url']}>
+                            <Icon name='mail' /> <span> Contact</span>
+                        </Button>
+                        <Button size="small" className="detailsbtn d-flex" href={item['url']}>
+                            <Icon name='paw' /> Learn More
+                        </Button>
+                    </CardContent>
+                </Card>
+            ))}
+        </Row>
     )
 
 }
 export default DisplayData;
+
+{/* <Item className="columnBox">
+    <Item.Image className="crop" size='medium' src={DisplayPhoto(item)} wrapped ui={false} />
+    <Item.Content>
+        <Item.Header>{DisplayName(item.name)} </Item.Header>
+        <Item.Meta>
+            <Icon name='mail' />  {item['contact']['email']}
+            <Icon name='phone' /> {item['contact']['phone']} </Item.Meta>
+        <Item.Description>
+            <Label>  <strong> Age:</strong> {item.age} </Label>
+            <Label><strong> Gender: </strong>  {item.gender}</Label>
+            <Label><strong>  Size: </strong>   {item.size}</Label>
+            <br /> <div> {DisplayName(item.name)} is a {getColor(item)} {item.breeds.primary},our fury friend was admitted to the shelter since {getYear(item.published_at)} and has been in the shelter for {getTimeDiff(item.published_at)}
+            </div>
+        </Item.Description>
+        <Item.Extra>  {tag(item)}</Item.Extra>
+    </Item.Content>
+<Button className="detailsbtn" href={item['url']}> Click for more details </Button></>
+</Item > */}

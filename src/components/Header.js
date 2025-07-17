@@ -7,7 +7,7 @@ import SearchTool from './SearchTool.js';
 
 
 function Header() {
-    // const { items } = props
+
     return (
         <main role="main" className="header h-100 landing Aligner">
             <SearchTool />

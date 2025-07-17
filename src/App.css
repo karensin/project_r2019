@@ -1,35 +1,39 @@
-html{
-  overflow-y : scroll;
-  width:100%; 
-  height: 100%; 
-  background:  rgba(163, 159, 145, 0.548);
+html {
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  background: rgba(163, 159, 145, 0.548);
 }
- 
-.greybackground{
-  background:#817d7d ;
+
+.greybackground {
+  background: #817d7d;
   mix-blend-mode: normal;
   transform: rotate(-0.13deg);
 }
 
-body{
+body {
   /* font-family: "Roboto", sans-serif;; */
   font-style: normal;
   /* font-weight: 600;
   color:rgb(40, 91, 133); */
   background: #00344A;
 }
+
 .landing {
   height: 100vh;
   min-width: 100%;
 
 }
- a.item {
-    width: 70px;
+
+a.item {
+  width: 70px;
 
 }
- .Aligner{
+
+.Aligner {
   background: #63675D
- } 
+}
+
 .Aligner-item {
   position: relative;
   top: 20%;
@@ -40,13 +44,13 @@ body{
   line-height: 156.62%;
 }
 
-.right{
-  left: 31%; 
+.right {
+  left: 31%;
   width: 90vh;
 }
 
- 
-main{
+
+main {
   min-height: 100vh;
   background-color: rgba(25, 77, 99, 0.671);
 }
@@ -55,7 +59,7 @@ main{
   border: 1px solid black;
 } */
 
-a.nav-link.nav-font.nav-link{
+a.nav-link.nav-font.nav-link {
   font-family: 'Atma';
   font-size: 20pt;
   letter-spacing: 0.1em;
@@ -65,7 +69,7 @@ a.nav-link.nav-font.nav-link{
   -webkit-text-stroke: rgba(163, 159, 145, 0.548) 1px;
 }
 
-span.background.labelFont.navbar-brand{
+span.background.labelFont.navbar-brand {
   font-family: 'Atma';
   line-height: 36px;
   font-size: 24pt;
@@ -73,8 +77,8 @@ span.background.labelFont.navbar-brand{
   -webkit-text-stroke: rgba(163, 159, 145, 0.548) 1px;
   font-weight: 900;
   line-height: 36px
-
 }
+
 /* 
 .landingbtn {
   position: absolute;; 
@@ -115,119 +119,128 @@ span.background.labelFont.navbar-brand{
   width: 200px;
 }
 
-.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg{
-  width:200px
+.ui.medium.image,
+.ui.medium.images .image,
+.ui.medium.images img,
+.ui.medium.images svg {
+  width: 200px
 }
-.item.columnBox{
+
+.columnBox {
   border: gray 2px solid;
 }
-.displayData  {
-    border: gray 1px solid;
-    background: beige;
-    width: 50vh;
-    left:1;
-    float: right;
+
+.displayData {
+  border: gray 1px solid;
+  background: beige;
+  width: 50vh;
+  left: 1;
+  float: right;
 }
-.stickySearchBar{
+
+.stickySearchBar {
   margin-top: 20px;
 }
-.label.speciesBtn{
+
+.label.speciesBtn {
   min-width: 10px;
   width: 200px;
   align-items: center;
   padding: 10px;
- 
+
 }
 
- label.speciesBtn.btn.btn-secondary.btn-lg{
-    width: 75px;
- }
-button, input {
-    overflow: hidden;
-    content: hidden ;
+label.speciesBtn.btn.btn-secondary.btn-lg {
+  width: 75px;
 }
- .container.directionBar{
-   width: 75vh;
- }
- .directionbtn{
+
+button,
+input {
+  overflow: hidden;
+  content: hidden;
+}
+
+.container.directionBar {
+  width: 75vh;
+}
+
+.directionbtn {
   min-width: 350px;
   min-height: 300px;
   padding-bottom: 10px;
- }
- .button.ui.button.directionbtn {
+}
+
+.button.ui.button.directionbtn {
   min-height: 25px;
   font-size: 12px;
   font-weight: 100;
- }
-a.ui.button.detailsbtn{
-    width: 120px;
-    height: 220px;
-    min-width: 120px;
-    max-width: 120px;
+}
+
+a.ui.button.detailsbtn {
+
   background: #AB987E;
 }
-.ui.items>.item>.content>.description{
-  font-size: 12px;
+
+a.ui.button.detailsbtn:hover {
+  background: #817d7d;
+  color: white;
+  box-shadow: 0 0 15px rgb(184, 189, 189);
 }
-.ui.items>.item .meta{
-  font-size: 12px;
-}
-.ui.label{
-  font-size: 10px;
-}
-a.ui.button.detailsbtn {
-    padding: 15px;
-    padding-top: 75px;
-}
-.ui.left.rail{
-  width: 0vh;
-}
+
 .ui.centered.two.column.grid {
-    width: 100vh;
+  width: 100vh;
 }
+
 .ui.segment {
-    width: 85%;
+  width: 85%;
 }
- 
- .stickyDirectionBar{
-   padding: 2px;
- }
- .container.displayData{
+
+.stickyDirectionBar {
+  padding: 2px;
+}
+
+.container.displayData {
   min-width: 500px;
   width: 800px;
- }
- .container.directionBar{
-   width: 600px;
- 
- 
- }
- 
+}
+
+.container.directionBar {
+  width: 600px;
+
+
+}
+
 @media screen and (max-width: 1200px) {
-  .stickySearchBar{
-  visibility: hidden
+  .stickySearchBar {
+    visibility: hidden
   }
 }
+
 .directionBar.d-flex.justify-content-around.container {
-    margin-right: 0;
+  margin-right: 0;
 }
+
 .ui.rail {
-    left: 0;
+  left: 0;
 }
+
 input[type="text"] {
-    width: 300px;
-    height: 35px;
+  width: 300px;
+  height: 35px;
 }
+
 button.ui.button.submitbutton {
-    padding: 10px;
-    height: 50px;
+  padding: 10px;
+  height: 50px;
 }
-.stickyDirectionBar.d-flex.justfiy-content-center{
+
+.stickyDirectionBar.d-flex.justfiy-content-center {
   padding: 10px;
   min-width: 1000px;
- 
+
 }
-.footer{
+
+.footer {
   position: relative;
- 
+
 }
- 

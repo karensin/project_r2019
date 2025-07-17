@@ -12,14 +12,7 @@ class SearchBar extends Component {
         return (
             <Container>
                 <Navbar className="navbar-default container d-flex flex-column flex-md-row justify-content-end" s variant="dark">
-                    {/* <img
-                        src={process.env.PUBLIC_URL + "/imgs/logo2.png"}
-                        className="logo"
-                        width="55"
-                        height="65"
-                        alt="logo"
 
-                    /> */}
                     <Navbar.Brand className="background labelFont d-flex flex-column justify-content-start"
                     >Project Crateless</Navbar.Brand>
                     <Nav className="navbar-collapse collapse justify-content-end">
