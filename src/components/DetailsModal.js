@@ -14,7 +14,7 @@ function DetailsModal({ toggleOpen, animalData, isOpen }) {
     const { name, age, gender, timeInShelter, breeds, description, attributes, photos, contact, colors, status, tags } = animalData || {}
 
     const ContactInfo = ({ contact }) => (
-        <div style={{ marginTop: '1rem', padding: '1rem', background: '#f4f4f4', borderRadius: '8px' }}>
+        <div style={{ marginTop: '1rem', padding: '0.5rem', background: '#f4f4f4', borderRadius: '8px' }}>
             <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>Contact Info</div>
             {contact?.email && (
                 <div>
@@ -73,45 +73,47 @@ function DetailsModal({ toggleOpen, animalData, isOpen }) {
                     <Header>
                         Time in shelter: {timeInShelter}
                     </Header>
-                    <p>{description}</p>
-                    {breeds?.primary && (
-                        <div>
-                            <strong>Breed:</strong> {breeds.primary}
-                            {breeds.secondary && ` / ${breeds.secondary}`}
-                        </div>
-                    )}
-                    {gender && (
-                        <div>
-                            <strong>Gender:</strong> {gender}
-                        </div>
-                    )}
-                    {age && (
-                        <div>
-                            <strong>Age:</strong> {age}
-                        </div>
-                    )}
-                    {colors?.primary && (
-                        <div>
-                            <strong>Color:</strong> {colors.primary}
-                            {colors.secondary && ` / ${colors.secondary}`}
-                            {colors.tertiary && ` / ${colors.tertiary}`}
-                        </div>
-                    )}
-                    {status && (
-                        <div>
-                            <strong>Status:</strong> {status}
-                        </div>
-                    )}
-                    {tags?.length > 0 && (
-                        <div>
-                            <strong>Tags:</strong> {tags.join(', ')}
-                        </div>
-                    )}
-                    {attributes?.spayed_neutered !== undefined && (
-                        <div>
-                            <strong>Spayed/Neutered:</strong> {attributes.spayed_neutered ? 'Yes' : 'No'}
-                        </div>
-                    )}
+                    <div style={{ padding: '0.5rem' }}>
+                        <p>{description}</p>
+                        {breeds?.primary && (
+                            <div>
+                                <strong>Breed:</strong> {breeds.primary}
+                                {breeds.secondary && ` / ${breeds.secondary}`}
+                            </div>
+                        )}
+                        {gender && (
+                            <div>
+                                <strong>Gender:</strong> {gender}
+                            </div>
+                        )}
+                        {age && (
+                            <div>
+                                <strong>Age:</strong> {age}
+                            </div>
+                        )}
+                        {colors?.primary && (
+                            <div>
+                                <strong>Color:</strong> {colors.primary}
+                                {colors.secondary && ` / ${colors.secondary}`}
+                                {colors.tertiary && ` / ${colors.tertiary}`}
+                            </div>
+                        )}
+                        {status && (
+                            <div>
+                                <strong>Status:</strong> {status}
+                            </div>
+                        )}
+                        {tags?.length > 0 && (
+                            <div>
+                                <strong>Tags:</strong> {tags.join(', ')}
+                            </div>
+                        )}
+                        {attributes?.spayed_neutered !== undefined && (
+                            <div>
+                                <strong>Spayed/Neutered:</strong> {attributes.spayed_neutered ? 'Yes' : 'No'}
+                            </div>
+                        )}
+                    </div>
                     <ContactInfo contact={contact} />
 
                 </ModalDescription>
