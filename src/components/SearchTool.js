@@ -5,6 +5,7 @@ import { Grid, Rail, Ref, Segment, Sticky } from 'semantic-ui-react';
 import GetData from './GetData';
 import { boundChangePetData } from '../Redux/actions';
 import { Suspense } from 'react';
+import { Dimmer, Loader, Image } from 'semantic-ui-react'
 
 const apiBase = "http://localhost:5050";
 
@@ -54,7 +55,6 @@ const SearchTool = () => {
             setState(prev => ({
                 ...prev,
                 items: data.animals || [],
-                isLoaded: true,
                 empty: data.animals?.length === 0 ? 'Sorry! No results.' : '',
                 totalPageCount: data.pagination?.total_pages || 1,
                 currentPage: data.pagination?.current_page || 1
@@ -64,15 +64,20 @@ const SearchTool = () => {
             setState(prev => ({
                 ...prev,
                 items: [],
-                isLoaded: true,
                 empty: 'Error loading data.'
+            }));
+        } finally {
+            setState(prev => ({
+                ...prev,
+                isLoaded: true
             }));
         }
     };
 
     useEffect(() => {
+        console.log("Fetching animals with state:", state);
         fetchAnimals();
-    }, [state.page]);
+    }, []);
 
     const onChangeCity = (e) => {
         setState(prev => ({ ...prev, input: e.target.value }));
@@ -80,23 +85,18 @@ const SearchTool = () => {
 
     const onSubmitCity = async (e) => {
         e.preventDefault();
-        setState(prev => ({ ...prev, location: prev.input, page: 1, input: '' }));
-        await fetchAnimals();
     };
 
     const onSpeciesChange = async (val) => {
-        setState(prev => ({ ...prev, petType: val, page: 1 }));
-        await fetchAnimals();
+        setState(prev => ({ ...prev, petType: val }));
     };
 
     const onAgeChange = async (val) => {
-        setState(prev => ({ ...prev, age: val, page: 1 }));
-        await fetchAnimals();
+        setState(prev => ({ ...prev, age: val, }));
     };
 
     const onCoatChange = async (val) => {
-        setState(prev => ({ ...prev, coat: val, page: 1 }));
-        await fetchAnimals();
+        setState(prev => ({ ...prev, coat: val }));
     };
 
     const onEnvToggle = async (field) => {
@@ -113,15 +113,22 @@ const SearchTool = () => {
                 page: 1
             };
         });
-        await fetchAnimals();
+        // await fetchAnimals();
     };
 
     const onPageChange = async (e, { activePage }) => {
         setState(prev => ({ ...prev, page: activePage }));
     };
 
-    function Loading() {
-        return <h2>🌀 Loading...</h2>;
+
+    const Loading = () => {
+        return (
+            <Segment>
+                <Dimmer active>
+                    <Loader />
+                </Dimmer>
+                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+            </Segment>)
     }
 
     return (
@@ -194,7 +201,7 @@ const SearchTool = () => {
                                         </Sticky>
 
                                         <GetData items={state.items} isLoaded={state.isLoaded} />
-                                        {state.totalPageCount > 1 && <Pagination onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />}
+                                        {state.totalPageCount > 1 && <Pagination className="d-flex" onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />}
 
 
                                     </Container>

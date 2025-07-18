@@ -4,6 +4,7 @@ import { Item } from 'semantic-ui-react'
 import { Icon, Label } from 'semantic-ui-react'
 import { Button, Pagination, Card, CardMeta, Image, CardContent, CardDescription, CardGroup, CardHeader } from 'semantic-ui-react'
 import { Container, Row, Col } from 'react-bootstrap';
+import DetailsModal from './DetailsModal'
 
 
 function DisplayData(props) {
@@ -11,14 +12,6 @@ function DisplayData(props) {
     const { items } = props
     const [photo, setPhoto] = useState([])
 
-    useEffect(() => {
-        function mapItems() {
-            for (let i = 0; i < items.length; i++) {
-                let item = items[i]
-            }
-        }
-        mapItems()
-    }, [items])
 
     function getImageByItem(item) {
         let dogPhoto = process.env.PUBLIC_URL + "/imgs/goofyDog.jpeg"
@@ -70,27 +63,7 @@ function DisplayData(props) {
         return result;
     }
 
-    //cats children 
-    function tag(item) {
-        let tags = []
-        for (let speices in item['environment']) {
 
-            if (item['environment'][speices] !== null) {
-                if (item['environment'][speices] === true) {
-                    tags.push(<Label> {speices} friendly</Label>)
-                }
-            }
-        }
-        for (let attribute in item['attributes']) {
-            if (item['attributes'][attribute] !== null) {
-                if (item['attributes'][attribute] === true) {
-                    tags.push(<Label> {attribute} </Label>)
-                }
-            }
-        }
-        return tags
-
-    }
 
 
     function getTimeDiff(dataTime) {
@@ -118,10 +91,39 @@ function DisplayData(props) {
         return result
 
     }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState(null);
 
-
+    const extractProps = (item) => {
+        console.log("Extracting props from item:", item.primary_photo_cropped);
+        return {
+            name: item.name,
+            age: item.age,
+            breeds: item.breeds,
+            description: item.description,
+            attributes: item.attributes,
+            photos: item.primary_photo_cropped,
+            contact: item.contact,
+            colors: item.colors,
+            status: item.status,
+            tags: item.tags,
+            gender: item.gender,
+            coat: item.coat,
+            timeInShelter: getTimeDiff(item.published_at)
+        }
+    }
+    const handleOpenModal = (item) => {
+        setModalData(extractProps(item));
+        setIsModalOpen(true);
+    }
     return (
         <Row style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'baseline' }}>
+            <DetailsModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                toggleOpen={(isOpen) => setIsModalOpen(isOpen)}
+                animalData={modalData}
+            />
             {items.map((item) => (
                 <Card
                     key={makeid(5)}
@@ -146,19 +148,20 @@ function DisplayData(props) {
                             className="detailsbtn d-flex"
                             href={item['contact']['email'] ? `mailto:${item['contact']['email']}` : item['url']}
 
-
                         >
                             <Icon name='mail' /> <span> Contact</span>
                         </Button>
+
                         <Button
                             size="small"
                             className="detailsbtn d-flex"
-                            href={item['url']}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            onClick={() => handleOpenModal(item)}
+                            isModalOpen={isModalOpen}
                         >
                             <Icon name='paw' /> Learn More
                         </Button>
+
+
                     </CardContent>
                 </Card>
             ))
