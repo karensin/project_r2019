@@ -102,7 +102,7 @@ function DetailsModal({ toggleOpen, animalData, isOpen }) {
                             <strong>Status:</strong> {status}
                         </div>
                     )}
-                    {tags.length > 0 && (
+                    {tags?.length > 0 && (
                         <div>
                             <strong>Tags:</strong> {tags.join(', ')}
                         </div>

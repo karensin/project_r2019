@@ -121,96 +121,100 @@ const SearchTool = () => {
     };
 
 
-    const Loading = () => {
+
+    if (!state.isLoaded) {
         return (
-            <Segment>
-                <Dimmer active>
-                    <Loader />
-                </Dimmer>
-                <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-            </Segment>)
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Segment>
+                    <Dimmer active inverted>
+                        <Loader size='massive'>Loading</Loader>
+                    </Dimmer>
+
+                    <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+                </Segment>
+            </div>
+        )
     }
 
     return (
-        <Suspense fallback={<Loading />}>
-            {
-                state.empty ? <div style={{ textAlign: 'center', margin: '1rem', fontSize: '1.2rem', color: '#ff4d4d' }}>{state.empty}</div> :
-                    <Container style={{ maxWidth: '100%' }} >
-                        <Grid>
-                            <Grid.Column columns={2}>
-                                <Ref innerRef={contextRef}>
-                                    <Container style={{ marginTop: '-12rem' }} >
-                                        <Sticky>
-                                            <Container fluid className="bg-white py-3 px-4 search-container">
-                                                <h3 style={{ fontWeight: '600', marginBottom: '1rem' }}>
-                                                    Search for Pets in Your Area
-                                                </h3>
-
-                                                <Row className="gy-3 gx-4 flex-nowrap overflow-auto">
-                                                    <Col xs="auto">
-                                                        <div className="fw-bold">Area code</div>
-
-                                                        <Form onSubmit={onSubmitCity} className="mb-3">
-                                                            <Input
-
-                                                                placeholder="Enter ZIP code..."
-                                                                value={state.input}
-                                                                onChange={onChangeCity}
-                                                                icon={<Icon name="search" link onClick={onSubmitCity} />}
-                                                            />
-                                                        </Form>
-                                                    </Col>
-                                                    <Col xs="auto">
-                                                        <div className="fw-bold">Species</div>
-                                                        <ToggleButtonGroup type="radio" name="species" onChange={onSpeciesChange}>
-                                                            <ToggleButton value="Dog">Dog</ToggleButton>
-                                                            <ToggleButton value="Cat">Cat</ToggleButton>
-                                                            <ToggleButton value="Rabbit">Rabbit</ToggleButton>
-                                                        </ToggleButtonGroup>
-                                                    </Col>
-
-                                                    <Col xs="auto">
-                                                        <div className="fw-bold">Age</div>
-                                                        <ToggleButtonGroup type="radio" name="age" onChange={onAgeChange}>
-                                                            <ToggleButton value="baby">Baby</ToggleButton>
-                                                            <ToggleButton value="young">Young</ToggleButton>
-                                                            <ToggleButton value="adult">Adult</ToggleButton>
-                                                            <ToggleButton value="senior">Senior</ToggleButton>
-                                                        </ToggleButtonGroup>
-                                                    </Col>
-
-                                                    <Col xs="auto">
-                                                        <div className="fw-bold">Coat</div>
-                                                        <ToggleButtonGroup type="radio" name="coat" onChange={onCoatChange}>
-                                                            <ToggleButton value="short">Short</ToggleButton>
-                                                            <ToggleButton value="medium">Medium</ToggleButton>
-                                                            <ToggleButton value="long">Long</ToggleButton>
-                                                        </ToggleButtonGroup>
-                                                    </Col>
-
-                                                    <Col xs="auto">
-                                                        <div className="fw-bold">Good With</div>
-                                                        <ButtonToolbar className="d-flex gap-2">
-                                                            <Button variant={state.good_with_cats ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_cats')}>Cats</Button>
-                                                            <Button variant={state.good_with_dogs ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_dogs')}>Dogs</Button>
-                                                            <Button variant={state.good_with_children ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_children')}>Children</Button>
-                                                        </ButtonToolbar>
-                                                    </Col>
-                                                </Row>
-                                            </Container>
-                                        </Sticky>
-
-                                        <GetData items={state.items} isLoaded={state.isLoaded} />
-                                        {state.totalPageCount > 1 && <Pagination className="d-flex" onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />}
 
 
-                                    </Container>
-                                </Ref>
-                            </Grid.Column>
-                        </Grid>
-                    </Container>
-            }
-        </Suspense>
+        <Container style={{ maxWidth: '100%' }} >
+            <Grid>
+                <Grid.Column columns={2}>
+                    <Ref innerRef={contextRef}>
+                        <Container style={{ marginTop: '-12rem' }} >
+                            <Sticky>
+                                <Container fluid className="bg-white py-3 px-4 search-container">
+                                    <h3 style={{ fontWeight: '600', marginBottom: '1rem' }}>
+                                        Search for Pets in Your Area
+                                    </h3>
+
+                                    <Row className="gy-3 gx-4 flex-nowrap overflow-auto">
+                                        <Col xs="auto">
+                                            <div className="fw-bold">Area code</div>
+
+                                            <Form onSubmit={onSubmitCity} className="mb-3">
+                                                <Input
+
+                                                    placeholder="Enter ZIP code..."
+                                                    value={state.input}
+                                                    onChange={onChangeCity}
+                                                    icon={<Icon name="search" link onClick={onSubmitCity} />}
+                                                />
+                                            </Form>
+                                        </Col>
+                                        <Col xs="auto">
+                                            <div className="fw-bold">Species</div>
+                                            <ToggleButtonGroup type="radio" name="species" onChange={onSpeciesChange}>
+                                                <ToggleButton value="Dog">Dog</ToggleButton>
+                                                <ToggleButton value="Cat">Cat</ToggleButton>
+                                                <ToggleButton value="Rabbit">Rabbit</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </Col>
+
+                                        <Col xs="auto">
+                                            <div className="fw-bold">Age</div>
+                                            <ToggleButtonGroup type="radio" name="age" onChange={onAgeChange}>
+                                                <ToggleButton value="baby">Baby</ToggleButton>
+                                                <ToggleButton value="young">Young</ToggleButton>
+                                                <ToggleButton value="adult">Adult</ToggleButton>
+                                                <ToggleButton value="senior">Senior</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </Col>
+
+                                        <Col xs="auto">
+                                            <div className="fw-bold">Coat</div>
+                                            <ToggleButtonGroup type="radio" name="coat" onChange={onCoatChange}>
+                                                <ToggleButton value="short">Short</ToggleButton>
+                                                <ToggleButton value="medium">Medium</ToggleButton>
+                                                <ToggleButton value="long">Long</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </Col>
+
+                                        <Col xs="auto">
+                                            <div className="fw-bold">Good With</div>
+                                            <ButtonToolbar className="d-flex gap-2">
+                                                <Button variant={state.good_with_cats ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_cats')}>Cats</Button>
+                                                <Button variant={state.good_with_dogs ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_dogs')}>Dogs</Button>
+                                                <Button variant={state.good_with_children ? 'primary' : 'secondary'} onClick={() => onEnvToggle('good_with_children')}>Children</Button>
+                                            </ButtonToolbar>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </Sticky>
+
+                            <GetData items={state.items} isLoaded={state.isLoaded} />
+                            {state.totalPageCount > 1 && <Pagination className="d-flex" onPageChange={onPageChange} activePage={state.page} totalPages={state.totalPageCount} />}
+
+
+                        </Container>
+                    </Ref>
+                </Grid.Column>
+            </Grid>
+        </Container>
+
+
     );
 };
 
