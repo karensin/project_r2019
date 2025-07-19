@@ -18,8 +18,6 @@ let tokenExpiry = 0;
 
 
 async function getToken() {
-    console.log("🔐 Requesting new token...");
-    console.log('🔑 Checking token validity...', !token, Date.now() >= tokenExpiry);
     if (!token || Date.now() >= tokenExpiry) {
         const res = await fetch('https://api.petfinder.com/v2/oauth2/token', {
             method: 'POST',
@@ -35,7 +33,6 @@ async function getToken() {
         token = data.access_token;
         tokenExpiry = Date.now() + data.expires_in * 1000;
 
-        console.log('🔐 New token fetched:', token.slice(0, 30) + '...');
     }
     return token;
 }
@@ -59,10 +56,6 @@ app.get('/api/animals', async (req, res) => {
     }
 });
 
-app.get('/test', (req, res) => {
-    console.log('✅ /test endpoint hit');
-    res.send('Proxy is working!');
-});
 
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
