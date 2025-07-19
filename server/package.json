@@ -1,0 +1,17 @@
+{
+    "name": "petfinder-proxy",
+    "version": "1.0.0",
+    "main": "petfinder-proxy.js",
+    "type": "commonjs",
+    "scripts": {
+        "start": "node petfinder-proxy.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.0",
+        "express": "^5.1.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
