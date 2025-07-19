@@ -30,7 +30,7 @@ class SearchBar extends Component {
                             content="Coming soon!"
                         />
 
-                        <Nav.Link className="nav-link nav-font" href="#about">About</Nav.Link>
+
                     </Nav>
                 </Navbar>
             </Container >
