@@ -8,7 +8,7 @@ import { Dimmer, Loader, Image } from 'semantic-ui-react'
 import { ButtonOr, ButtonGroup, Button } from 'semantic-ui-react'
 import Expand from './Expand';
 import { use } from 'react';
-const apiBase = "http://localhost:5050";
+const apiBase = process.env.REACT_APP_API_URL;
 
 const SearchTool = () => {
     const contextRef = useRef();
